@@ -85,59 +85,66 @@
                                     @cannot("admin")
                                     <td>
                                         @if ($participantMark -> marks == 0)
-                                            <label for="my-modal-2" class="btn btn-primary btn-sm modal-button">tambah</label>
+                                            <a href="#add-marks" class="btn btn-primary btn-sm modal-button">tambah</a>
                                         @else
                                             <button class="btn btn-secondary btn-sm">Ubah</button>
                                         @endif
                                     </td>
                                     <form action={{"/dashboard/competition/".$competition->id."/participant/".$participantMark -> peserta -> id."/add-marks"}} method="POST">
                                         @csrf
-                                        <input type="checkbox" id="my-modal-2" class="modal-toggle"> 
-                                        <div class="modal">
+
+                                        <input type="hidden" name="participant-mark-id" value="{{$participantMark -> id}}">
+                                        {{-- <a href="#my-modal" class="btn btn-primary">open modal</a>  --}}
+                                        {{-- <input type="checkbox" id="my-modal-2" class="modal-toggle" >  --}}
+                                        <div id="add-marks" class="modal">
                                         <div class="modal-box ">
                                                 <p class="mb-2">Markah</p>
                                             <div class="flex text-center">
                                                 <div class="">
-                                                <input name="judge-1" class=" w-12 mx-1 rounded-lg" type="text" required></input>
+                                                <input name="judge-1" class=" w-12 mx-1 rounded-lg @error('judge-1') border-red-700 @enderror" value="{{old('judge-1')}}" autofocus type="text" required></input>
                                                 </div>
                                                  <div class="">
-                                                <input name="judge-2" class=" w-12 mx-1 rounded-lg" type="text" required></input>
+                                                <input name="judge-2" class=" w-12 mx-1 rounded-lg @error('judge-2') border-red-700 @enderror" value="{{old('judge-2')}}" type="text" required></input>
                                                 </div>
                                                  <div class="">
-                                                <input name="judge-3" class=" w-12 mx-1 rounded-lg" type="text" required></input>
+                                                <input name="judge-3" class=" w-12 mx-1 rounded-lg @error('judge-3') border-red-700 @enderror" value="{{old('judge-3')}}" type="text" required></input>
                                                 </div>
                                                  <div class="">
-                                                <input name="judge-4" class=" w-12 mx-1 rounded-lg" type="text" required></input>
+                                                <input name="judge-4" class=" w-12 mx-1 rounded-lg @error('judge-4') border-red-700 @enderror" value="{{old('judge-4')}}" type="text" required></input>
                                                 </div>
                                                  <div class="">
-                                                <input name="judge-5" class=" w-12 mx-1 rounded-lg" type="text" required></input>
+                                                <input name="judge-5" class=" w-12 mx-1 rounded-lg @error('judge-5') border-red-700 @enderror" value="{{old('judge-5')}}" type="text" required></input>
                                                 </div>
                                                  <div class="">
-                                                <input name="judge-6" class=" w-12 mx-1 rounded-lg" type="text" required></input>
+                                                <input name="judge-6" class=" w-12 mx-1 rounded-lg @error('judge-6') border-red-700 @enderror" value="{{old('judge-6')}}" type="text" required></input>
                                                 </div>
                                                  <div class="">
-                                                <input name="judge-7" class=" w-12 mx-1 rounded-lg" type="text" required></input>
+                                                <input name="judge-7" class=" w-12 mx-1 rounded-lg @error('judge-7') border-red-700 @enderror" value="{{old('judge-7')}}" type="text" required></input>
                                                 </div>
                                             </div>
                                             <div class="divider"></div> 
                                             <div class="flex">
                                                 <div class="">
                                                     <p>Kesukaran</p>
-                                                <input name="difficulty" class="w-1/2" type="text" required></input>
+                                                <input name="difficulty" class="w-1/2 @error('difficulty') border-red-700 @enderror" value="{{old('difficulty')}}" type="text" required></input>
                                                 </div>
                                                 <div class="">
                                                     <p>Penalti</p>
-                                                <input name="penalty" class="w-1/2" type="text" required></input>
+                                                <input name="penalty" class="w-1/2 @error('penalty') border-red-700 @enderror" value="{{old('penalty') ?? 0}}" type="text" required></input>
                                                 </div>
                                             </div>
                                   
                                             <div class="modal-action">
                                             <button type="submit" for="my-modal-2" class="btn btn-primary">Tambah</button> 
-                                            <label for="my-modal-2" class="btn">Tutup</label>
+                                    </form>
+                                            @if($errors->any())
+                                                <a href="" class="btn">Tutup</a>
+                                            @else
+                                                <a href="#close" class="btn">Tutup</a>
+                                            @endif
                                             </div>
                                         </div>
                                         </div>
-                                    </form>
 
                                     @endcannot
                                 </tr>

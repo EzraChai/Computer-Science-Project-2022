@@ -49,4 +49,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/dashboard/competition/{competition_id}/participant', [PesertaController::class, 'indexWithCompetitionId']);
 
     Route::post('/dashboard/competition/{competition_id}/participant/{participant_id}/add-marks', [HakimController::class, 'addMarks']);
+
+    Route::post('/dashboard/competition/{{competition_id}}/delete-sessions', [HakimController::class, 'deleteSessions']);
 });
