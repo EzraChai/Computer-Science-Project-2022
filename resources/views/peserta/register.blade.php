@@ -25,7 +25,7 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <x-jet-button class="ml-4">
+                <x-jet-button class="btn ml-4">
                     {{ __('Daftar') }}
                 </x-jet-button>
             </div>

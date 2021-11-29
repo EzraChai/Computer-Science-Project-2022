@@ -45,7 +45,7 @@
                              <p class="text-base-content text-opacity-60">Jumlah Bilangan Peserta</p>
                             <h1 class="card-title text-4xl font-extrabold text-YInMnBlue">{{$participantsCount}}</h1>
                             @can("admin")
-                            <div class="flex-0 float-right">
+                            <div class="flex-0">
                                 <a href="/dashboard/competition/{{$competition->id}}/participant" class="btn btn-sm">Urus Peserta</a>
                             </div>
                             @endcan
@@ -54,11 +54,11 @@
                     </div>
                     <div class="card col-span-1 row-span-3 shadow-lg xl:col-span-3 bg-base-100">
                         <div class="card-body text-gray-800">
-                            @foreach ($rounds as $round)
+                            @foreach ($overallParticipantsMark as $key => $participantsMark)
                             <div class="collapse w-full mt-4 shadow-sm collapse-arrow">
                             <input type="checkbox"> 
                             <div class="collapse-title text-xl font-medium">
-                                Pusingan ke-{{$round-> round }}
+                                Pusingan ke-{{$key + 1}}
                             </div> 
                             <div class="collapse-content"> 
                                 <table class="table w-full">
@@ -85,18 +85,15 @@
                                     @cannot("admin")
                                     <td>
                                         @if ($participantMark -> marks == 0)
-                                            <a href="#add-marks" class="btn btn-primary btn-sm modal-button">tambah</a>
+                                            <a href="#add-marks{{$participantMark -> id}}" class="btn btn-primary btn-sm modal-button">tambah</a>
                                         @else
-                                            <button class="btn btn-secondary btn-sm">Ubah</button>
+                                            <a href="#change-marks{{$participantMark -> id}}" class="btn btn-secondary btn-sm">Ubah</a>
                                         @endif
                                     </td>
                                     <form action={{"/dashboard/competition/".$competition->id."/participant/".$participantMark -> peserta -> id."/add-marks"}} method="POST">
                                         @csrf
-
                                         <input type="hidden" name="participant-mark-id" value="{{$participantMark -> id}}">
-                                        {{-- <a href="#my-modal" class="btn btn-primary">open modal</a>  --}}
-                                        {{-- <input type="checkbox" id="my-modal-2" class="modal-toggle" >  --}}
-                                        <div id="add-marks" class="modal">
+                                        <div id="add-marks{{$participantMark -> id}}" class="modal">
                                         <div class="modal-box ">
                                                 <p class="mb-2">Markah</p>
                                             <div class="flex text-center">
@@ -136,7 +133,6 @@
                                   
                                             <div class="modal-action">
                                             <button type="submit" for="my-modal-2" class="btn btn-primary">Tambah</button> 
-                                    </form>
                                             @if($errors->any())
                                                 <a href="" class="btn">Tutup</a>
                                             @else
@@ -145,7 +141,58 @@
                                             </div>
                                         </div>
                                         </div>
-
+                                    </form>
+                                    <form action={{"/dashboard/competition/".$competition->id."/participant/".$participantMark -> peserta -> id."/change-marks"}} method="POST">
+                                        @csrf
+                                        <input type="hidden" name="participant-mark-id" value="{{$participantMark -> id}}">
+                                        <div id="change-marks{{$participantMark -> id}}" class="modal">
+                                        <div class="modal-box">
+                                                <p class="mb-2">Markah</p>
+                                            <div class="flex text-center">
+                                                <div class="">
+                                                <input name="judge-1" class=" w-12 mx-1 rounded-lg @error('judge-1') border-red-700 @enderror" value="{{$participantMark -> judge_1 ?? old('judge-1')}}" autofocus type="text" required></input>
+                                                </div>
+                                                 <div class="">
+                                                <input name="judge-2" class=" w-12 mx-1 rounded-lg @error('judge-2') border-red-700 @enderror" value="{{$participantMark -> judge_2 ?? old('judge-2')}}" type="text" required></input>
+                                                </div>
+                                                 <div class="">
+                                                <input name="judge-3" class=" w-12 mx-1 rounded-lg @error('judge-3') border-red-700 @enderror" value="{{$participantMark -> judge_3 ?? old('judge-3')}}" type="text" required></input>
+                                                </div>
+                                                 <div class="">
+                                                <input name="judge-4" class=" w-12 mx-1 rounded-lg @error('judge-4') border-red-700 @enderror" value="{{$participantMark -> judge_4 ?? old('judge-4')}}" type="text" required></input>
+                                                </div>
+                                                 <div class="">
+                                                <input name="judge-5" class=" w-12 mx-1 rounded-lg @error('judge-5') border-red-700 @enderror" value="{{$participantMark -> judge_5 ?? old('judge-5')}}" type="text" required></input>
+                                                </div>
+                                                 <div class="">
+                                                <input name="judge-6" class=" w-12 mx-1 rounded-lg @error('judge-6') border-red-700 @enderror" value="{{$participantMark -> judge_6 ?? old('judge-6')}}" type="text" required></input>
+                                                </div>
+                                                 <div class="">
+                                                <input name="judge-7" class=" w-12 mx-1 rounded-lg @error('judge-7') border-red-700 @enderror" value="{{$participantMark -> judge_7 ?? old('judge-7')}}" type="text" required></input>
+                                                </div>
+                                            </div>
+                                            <div class="divider"></div> 
+                                            <div class="flex">
+                                                <div class="">
+                                                    <p>Kesukaran</p>
+                                                <input name="difficulty" class="w-1/2 @error('difficulty') border-red-700 @enderror" value="{{$participantMark -> difficulty ?? old('difficulty')}}" type="text" required></input>
+                                                </div>
+                                                <div class="">
+                                                    <p>Penalti</p>
+                                                <input name="penalty" class="w-1/2 @error('penalty') border-red-700 @enderror" value="{{$participantMark -> penalty ?? old('penalty') ?? 0}}" type="text" required></input>
+                                                </div>
+                                            </div>
+                                            <div class="modal-action">
+                                            <button type="submit" for="my-modal-2" class="btn btn-primary">Tambah</button> 
+                                            @if($errors->any())
+                                                <a href="" class="btn">Tutup</a>
+                                            @else
+                                                <a href="#close" class="btn">Tutup</a>
+                                            @endif
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </form>
                                     @endcannot
                                 </tr>
                                     @endforeach
@@ -154,7 +201,6 @@
                             </div>
                             </div>
                             @endforeach
-
                         </div>
                     </div>
                 </div> 

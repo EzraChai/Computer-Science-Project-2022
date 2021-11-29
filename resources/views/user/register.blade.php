@@ -25,7 +25,7 @@
                 <label class="inline-flex items-center">
                     <input
                     type="radio"
-                    class="form-radio"
+                    class="form-radio radio"
                     name="accountType"
                     value="urusSetia"
                     />
@@ -34,7 +34,7 @@
                 <label class="inline-flex items-center ml-6">
                     <input
                     type="radio"
-                    class="form-radio"
+                    class="form-radio radio"
                     name="accountType"
                     value="hakim"
                     checked
@@ -55,7 +55,7 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <x-jet-button class="ml-4">
+                <x-jet-button class="btn ml-4">
                     {{ __('Mendaftar') }}
                 </x-jet-button>
             </div>

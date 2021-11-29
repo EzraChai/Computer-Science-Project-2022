@@ -7,6 +7,7 @@ use App\Models\Pertandingan;
 use App\Models\Peserta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PertandinganController extends Controller
 {
@@ -87,9 +88,14 @@ class PertandinganController extends Controller
         $competition = Pertandingan::findOrFail($id);
         $rounds = $competition->pusingan;
         $participantsCount = Peserta::where("pertandingan_id", $id)->count();
-        $participantsMark = MarkahPeserta::where('pusingan_id', $rounds[0]->id)->orderBy("total_marks", "DESC")->get();
 
-        return view('pertandingan.show', compact('competition', 'rounds', 'participantsCount', 'participantsMark'));
+        // MarkahPeserta::where('pusingan_id', $rounds -> )
+        $overallParticipantsMark = null;
+        for ($i = 0; $i < $rounds->count(); $i++) {
+            $participantsMark = MarkahPeserta::where('pusingan_id', $rounds[$i]->id)->orderBy("total_marks", "DESC")->get();
+            $overallParticipantsMark[$i] = $participantsMark;
+        }
+        return view('pertandingan.show', compact('competition', 'rounds', 'participantsCount', 'overallParticipantsMark'));
     }
 
     /**
@@ -158,5 +164,29 @@ class PertandinganController extends Controller
             return redirect('/dashboard');
         }
         return redirect('/dashboard');
+    }
+
+    public function competition()
+    {
+        $competitions = Pertandingan::all();
+        for ($i = 0; $i < $competitions->count(); $i++) {
+            $competitions[$i]->participantName = DB::table("pesertas")->where("pertandingan_id", $competitions[$i]->id)->pluck("name");
+        };
+
+        return view("pertandingan", compact("competitions"));
+    }
+
+    public function competitionWithId($id)
+    {
+        $competition = Pertandingan::findOrFail($id);
+        $rounds = $competition->pusingan;
+        $participantsCount = Peserta::where("pertandingan_id", $id)->count();
+
+        $overallParticipantsMark = null;
+        for ($i = 0; $i < $rounds->count(); $i++) {
+            $participantsMark = MarkahPeserta::where('pusingan_id', $rounds[$i]->id)->orderBy("total_marks", "DESC")->get();
+            $overallParticipantsMark[$i] = $participantsMark;
+        }
+        return view('pertandingan-id', compact('competition', 'rounds', 'participantsCount', 'overallParticipantsMark'));
     }
 }

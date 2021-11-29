@@ -4,7 +4,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\HakimController;
 use App\Http\Controllers\PertandinganController;
 use App\Http\Controllers\PesertaController;
-use Illuminate\Support\Facades\Hash;
+use App\Models\Pertandingan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,10 +18,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    // return view('welcome');
-    dd(Hash::make("D9806f2a2b"));
-});
+Route::get('/', [Controller::class, 'home']);
+
+Route::get('/competition', [PertandinganController::class, 'competition']);
+
+Route::get('/competition/{id}', [PertandinganController::class, 'competitionWithId']);
+
 
 // Route::middleware(['auth:sanctum', 'verified'], function () {
 //     Route::get('/dashboard', [Controller::class, 'index'])->name('dashboard');
@@ -50,5 +52,5 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::post('/dashboard/competition/{competition_id}/participant/{participant_id}/add-marks', [HakimController::class, 'addMarks']);
 
-    Route::post('/dashboard/competition/{{competition_id}}/delete-sessions', [HakimController::class, 'deleteSessions']);
+    Route::post('/dashboard/competition/{competition_id}/participant/{participant_id}/change-marks', [HakimController::class, 'changeMarks']);
 });

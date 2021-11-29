@@ -58,6 +58,8 @@
                                     ease-linear
                                     transition-all
                                     duration-150
+                                    rounded-none
+                                    btn
                                 "
                                 type="submit"
                                 >

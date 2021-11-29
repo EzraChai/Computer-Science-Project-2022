@@ -1,3 +1,99 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@900&family=Montserrat:wght@500;600;700&display=swap");
+
+.navbar-settings {
+    width: 98%;
+    left: 50%;
+    margin-left: -49%; /* Negative half of width. */
+}
+
+.navbar-settings {
+    width: 98%;
+}
+
+.illusion {
+    margin-top: -100px;
+    margin-left: 50px;
+}
+
+.width-20 {
+    width: 22rem;
+}
+
+.shapes {
+    /* cursor: none; */
+    position: relative;
+    height: 100vh;
+    width: 99vw;
+    background: #355070;
+    overflow: hidden;
+}
+
+.shapes .shape {
+    will-change: transform;
+    position: absolute;
+    border-radius: 50%;
+}
+
+.shapes .shape-1 {
+    background-color: #6d597a;
+    width: 650px;
+    height: 650px;
+    margin: -325px 0 0 -325px;
+}
+.shapes .shape-2 {
+    background-color: #b56576;
+    width: 440px;
+    height: 440px;
+    margin: -220px 0 0 -220px;
+}
+.shapes .shape-3 {
+    background-color: #e56b6f;
+    width: 270px;
+    height: 270px;
+    margin: -135px 0 0 -135px;
+}
+
+.content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    background-color: white;
+    mix-blend-mode: screen;
+}
+
+.content h1 {
+    font-weight: 900;
+    font-family: Montserrat Alternates, " sans-serif";
+}
+
+.text-font {
+    color: #355070;
+    font-weight: 600;
+    font-family: "Montserrat", sans-serif;
+}
+
+.text-font-2 {
+    font-weight: 700;
+    font-family: "Montserrat", sans-serif;
+}
+
+.upBit {
+    margin: -3px;
+}
+
+.upABit {
+    margin: -2px;
+}
+
+.margintop-half {
+    margin-top: 0.125rem;
+}

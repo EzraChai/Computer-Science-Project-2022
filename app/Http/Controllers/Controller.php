@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pertandingan;
+use App\Models\Peserta;
 use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -20,13 +21,15 @@ class Controller extends BaseController
     {
         $user = Auth()->user();
         $competitions = Pertandingan::all();
+        $participantCount = Peserta::all()->count();
+        $userCount = User::all()->count();
 
         if ($user->is_admin) {
             $users = User::where('id', "!=", $user->id)->get();
             $competitions = Pertandingan::all();
-            return view('dashboard', compact('users', 'competitions'));
+            return view('dashboard', compact('competitions', 'participantCount', 'userCount'));
         }
-        return view('dashboard', compact('competitions'));
+        return view('dashboard', compact('competitions', 'participantCount', 'userCount'));
     }
 
     public function user()
@@ -98,5 +101,12 @@ class Controller extends BaseController
             }
         }
         return redirect('/user')->with('status',  $isAdmin ? 'Urus Setia' : 'Hakim' . ' dengan [' . $name . '] telah diupdatekan.');
+    }
+
+    public function home()
+    {
+        $competitions = Pertandingan::all();
+
+        return view('welcome', compact('competitions'));
     }
 }
