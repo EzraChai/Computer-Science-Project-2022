@@ -33,6 +33,15 @@
                     </a> 
                     @endforeach
                   </div>
+                  
+                  <div class="flex py-2 justify-center">
+                    <a href="/competition" class="link mt-12 font-bold link-hover text-2xl">Pertandingan Lain &#8594;</a>
+                    <!-- <div class="btn mt-10">
+                      <div class="flex items-center">
+                        <div>Maklumat Lanjut</div> 
+                        <div class="ml-2">&#8594;</div>
+                    </div></div>
+                  </div> -->
               </div>
               <div class="py-20"></div>
           </div>

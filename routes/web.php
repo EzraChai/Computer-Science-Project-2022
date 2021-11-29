@@ -4,6 +4,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\HakimController;
 use App\Http\Controllers\PertandinganController;
 use App\Http\Controllers\PesertaController;
+use App\Http\Controllers\SearchController;
 use App\Models\Pertandingan;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,8 @@ Route::get('/', [Controller::class, 'home']);
 Route::get('/competition', [PertandinganController::class, 'competition']);
 
 Route::get('/competition/{id}', [PertandinganController::class, 'competitionWithId']);
+
+Route::get("/search/query", [SearchController::class, 'query']);
 
 
 // Route::middleware(['auth:sanctum', 'verified'], function () {

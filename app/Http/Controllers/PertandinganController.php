@@ -6,7 +6,7 @@ use App\Models\MarkahPeserta;
 use App\Models\Pertandingan;
 use App\Models\Peserta;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class PertandinganController extends Controller
@@ -168,7 +168,9 @@ class PertandinganController extends Controller
 
     public function competition()
     {
-        $competitions = Pertandingan::all();
+        $competitions = Cache::remember('competitions', 60, function () {
+            return Pertandingan::all();
+        });
         for ($i = 0; $i < $competitions->count(); $i++) {
             $competitions[$i]->participantName = DB::table("pesertas")->where("pertandingan_id", $competitions[$i]->id)->pluck("name");
         };

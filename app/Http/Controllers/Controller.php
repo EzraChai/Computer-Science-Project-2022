@@ -10,6 +10,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Fortify\Rules\Password;
 
@@ -26,7 +27,9 @@ class Controller extends BaseController
 
         if ($user->is_admin) {
             $users = User::where('id', "!=", $user->id)->get();
-            $competitions = Pertandingan::all();
+            $competitions = Cache::remember('competitions', 60, function () {
+                return Pertandingan::all();
+            });
             return view('dashboard', compact('competitions', 'participantCount', 'userCount'));
         }
         return view('dashboard', compact('competitions', 'participantCount', 'userCount'));
@@ -105,7 +108,10 @@ class Controller extends BaseController
 
     public function home()
     {
-        $competitions = Pertandingan::all();
+        $competitions = Cache::remember('four_competitions', 60, function () {
+            return Pertandingan::all()->take(4);
+        });
+
 
         return view('welcome', compact('competitions'));
     }

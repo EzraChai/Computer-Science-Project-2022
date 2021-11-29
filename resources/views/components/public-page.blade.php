@@ -13,7 +13,7 @@
             <div class="hidden px-2 mx-2 navbar-center justify-center navbar-settings lg:flex">
                 <div class="flex items-stretch">
                     <a href="/" class="btn btn-ghost btn-sm rounded-btn">
-                        Home
+                        Utama
                     </a> 
                     <a href="/competition" class="btn btn-ghost btn-sm rounded-btn">
                         Pertandingan
