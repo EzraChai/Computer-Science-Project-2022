@@ -15,12 +15,28 @@
                 <table class="table min-w-full mt-4">
                                     <thead>
                                         <tr>
+                                            @if($competition_type == "Seirama")
+                                               <th
+                                                class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                                                Nama Peserta 1</th>
+                                            <th
+                                                class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                                                Kad Pengenalan Peserta 1</th>
+                                            <th
+                                                class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                                                Nama Peserta 2</th>
+                                            <th
+                                                class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                                                Kad Pengenalan Peserta 2</th> 
+                                            @endif
+                                            @if($competition_type == "Solo")
                                             <th
                                                 class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                                                 Nama</th>
                                             <th
                                                 class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                                                 Kad Pengenalan</th>
+                                            @endif
                                             <th
                                                 class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                                                 Sekolah</th>
@@ -40,11 +56,25 @@
                                                     {{$participant -> name}}
                                                 </div>
                                             </td>
+                                            @if($competition_type == "Seirama")
                                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                                 <div class="text-sm font-medium leading-5 text-gray-900">
                                                     {{$participant -> identity}}
                                                 </div>
                                             </td>
+                                            @endif
+                                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                                <div class="text-sm font-medium leading-5 text-gray-900">
+                                                    {{$participant -> secondName}}
+                                                </div>
+                                            </td>
+                                            @if($competition_type == "Seirama")
+                                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                                <div class="text-sm font-medium leading-5 text-gray-900">
+                                                    {{$participant -> secondIdentity}}
+                                                </div>
+                                            </td>
+                                            @endif
                                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                                 <div class="text-sm font-medium leading-5 text-gray-900">
                                                     {{$participant -> school}}

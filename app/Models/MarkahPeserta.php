@@ -21,6 +21,11 @@ class MarkahPeserta extends Model
         'judge_5',
         'judge_6',
         'judge_7',
+        'sync_1',
+        'sync_2',
+        'sync_3',
+        'sync_4',
+        'sync_5',
         'difficulty',
         'penalty',
     ];

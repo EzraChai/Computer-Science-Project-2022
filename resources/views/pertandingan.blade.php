@@ -30,9 +30,10 @@
                             <p class="text-base text-gray-500">{{$competition -> avenue}}</p>
                         <p class="text-base mt-2 text-gray-600">Peserta yang terlibat:</p>
                         <ul class="margintop-half">
-                            @foreach ($competition ->participantName  as $item)
+                            @foreach ($competition -> participantName  as $item)
                             <li class="text-gray-500 text-sm">
-                                 - {{$item}}
+                                 - {{$item ->name}}
+                                @if($competition -> type == "Seirama") / {{$item -> secondName}} @endif
                             </li>
                             @endforeach
                         </ul>

@@ -19,6 +19,7 @@ class CreatePertandingansTable extends Migration
             $table->string("name");
             $table->string("avenue");
             $table->date("date");
+            $table->string("type");
             $table->timestamps();
         });
     }

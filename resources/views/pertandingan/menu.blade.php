@@ -25,6 +25,16 @@
                             </label>
                         </div>
 
+                         <div class="mt-4">
+                            <label class="block">
+                                <div class="text-gray-700 mb-1">Jenis Pertandingan</div>
+                                      <span class="label-text mr-1">Solo</span> 
+                                <input type="radio" name="pertandingan-type" checked class="radio" value="Solo">
+                                      <span class="label-text ml-4 mr-1">Seirama</span> 
+                                <input type="radio" name="pertandingan-type" class="radio" value="Seirama">
+                            </label>
+                        </div>
+
                         <div class="mt-4">
                             <span class="text-gray-700">Tarik Pertandingan</span>
                             <div class="mt-2">

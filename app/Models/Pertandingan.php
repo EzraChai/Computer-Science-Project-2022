@@ -19,6 +19,7 @@ class Pertandingan extends Model
         'name',
         'avenue',
         'date',
+        'type',
     ];
 
     public function pusingan()

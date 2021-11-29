@@ -16,8 +16,10 @@ class CreatePesertasTable extends Migration
         Schema::create('pesertas', function (Blueprint $table) {
             $table->id();
             $table->string("identity");
+            $table->string("secondIdentity")->nullable();
             $table->unsignedBigInteger('pertandingan_id');
             $table->string("name");
+            $table->string("secondName")->nullable();
             $table->string("school");
             $table->timestamps();
         });

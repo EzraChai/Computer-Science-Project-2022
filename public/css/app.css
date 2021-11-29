@@ -2887,6 +2887,8 @@ video {
 	margin: 1.5rem;
 }.m-auto{
 	margin: auto;
+}.m-2{
+	margin: 0.5rem;
 }.mx-auto{
 	margin-left: auto;
 	margin-right: auto;

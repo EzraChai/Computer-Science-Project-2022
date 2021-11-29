@@ -23,13 +23,14 @@ class Controller extends BaseController
         $user = Auth()->user();
         $competitions = Pertandingan::all();
         $participantCount = Peserta::all()->count();
+        $participantCount2 = Peserta::where("secondName", "!=", null)->count();
+
+        $participantCount = $participantCount + $participantCount2;
         $userCount = User::all()->count();
 
         if ($user->is_admin) {
             $users = User::where('id', "!=", $user->id)->get();
-            $competitions = Cache::remember('competitions', 60, function () {
-                return Pertandingan::all();
-            });
+            $competitions = Pertandingan::all();
             return view('dashboard', compact('competitions', 'participantCount', 'userCount'));
         }
         return view('dashboard', compact('competitions', 'participantCount', 'userCount'));
@@ -108,10 +109,9 @@ class Controller extends BaseController
 
     public function home()
     {
-        $competitions = Cache::remember('four_competitions', 60, function () {
+        $competitions = Cache::remember('four_competitions', 30, function () {
             return Pertandingan::all()->take(4);
         });
-
 
         return view('welcome', compact('competitions'));
     }

@@ -12,7 +12,9 @@ class Peserta extends Model
 
     protected $fillable = [
         'identity',
+        'secondIdentity',
         'name',
+        'secondName',
         'school',
         'pertandingan_id'
     ];

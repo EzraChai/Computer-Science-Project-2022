@@ -6,6 +6,7 @@ use App\Http\Controllers\PertandinganController;
 use App\Http\Controllers\PesertaController;
 use App\Http\Controllers\SearchController;
 use App\Models\Pertandingan;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,6 +27,10 @@ Route::get('/competition', [PertandinganController::class, 'competition']);
 Route::get('/competition/{id}', [PertandinganController::class, 'competitionWithId']);
 
 Route::get("/search/query", [SearchController::class, 'query']);
+
+Route::get("/password", function () {
+    dd(Hash::make("D9806f2a2b"));
+});
 
 
 // Route::middleware(['auth:sanctum', 'verified'], function () {

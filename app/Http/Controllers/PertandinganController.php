@@ -54,12 +54,14 @@ class PertandinganController extends Controller
                 'pertandingan-name' => 'required|max:255',
                 'pertandingan-avenue' => 'required|max:255',
                 'pertandingan-date' => 'required',
+                'pertandingan-type' => 'required'
             ]);
 
             $pertandingan = Pertandingan::create([
                 'name' => $validated['pertandingan-name'],
                 'avenue' => $validated['pertandingan-avenue'],
-                'date' => $validated['pertandingan-date']
+                'date' => $validated['pertandingan-date'],
+                'type' => $validated['pertandingan-type'],
             ]);
 
             $pertandingan->pusingan()->createMany([
@@ -89,7 +91,6 @@ class PertandinganController extends Controller
         $rounds = $competition->pusingan;
         $participantsCount = Peserta::where("pertandingan_id", $id)->count();
 
-        // MarkahPeserta::where('pusingan_id', $rounds -> )
         $overallParticipantsMark = null;
         for ($i = 0; $i < $rounds->count(); $i++) {
             $participantsMark = MarkahPeserta::where('pusingan_id', $rounds[$i]->id)->orderBy("total_marks", "DESC")->get();
@@ -124,17 +125,19 @@ class PertandinganController extends Controller
     public function update(Request $request, $id)
     {
         if (Auth()->user()->is_admin) {
-            //
+
             $validated = $request->validate([
                 'pertandingan-tajuk' => 'required|max:255',
                 'pertandingan-avenue' => 'required|max:255',
                 'pertandingan-date' => 'required',
+                'pertandingan-type' => 'required'
             ]);
             $competition = Pertandingan::findOrFail($id);
 
             $competition->name = $validated['pertandingan-tajuk'];
             $competition->avenue = $validated['pertandingan-avenue'];
             $competition->date = $validated['pertandingan-date'];
+            $competition->type = $validated['pertandingan-type'];
 
             $competition->update();
 
@@ -172,9 +175,8 @@ class PertandinganController extends Controller
             return Pertandingan::all();
         });
         for ($i = 0; $i < $competitions->count(); $i++) {
-            $competitions[$i]->participantName = DB::table("pesertas")->where("pertandingan_id", $competitions[$i]->id)->pluck("name");
+            $competitions[$i]->participantName = DB::table("pesertas")->where("pertandingan_id", $competitions[$i]->id)->get();
         };
-
         return view("pertandingan", compact("competitions"));
     }
 
@@ -183,6 +185,9 @@ class PertandinganController extends Controller
         $competition = Pertandingan::findOrFail($id);
         $rounds = $competition->pusingan;
         $participantsCount = Peserta::where("pertandingan_id", $id)->count();
+        if ($competition->type == "Seirama") {
+            $participantsCount *= 2;
+        }
 
         $overallParticipantsMark = null;
         for ($i = 0; $i < $rounds->count(); $i++) {

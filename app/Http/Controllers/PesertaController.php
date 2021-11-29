@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\MarkahPeserta;
+use App\Models\Pertandingan;
 use App\Models\Peserta;
 use App\Models\Pusingan;
 use Illuminate\Http\Request;
@@ -18,9 +19,10 @@ class PesertaController extends Controller
     {
         //
         if (Auth()->user()->is_admin) {
+            $competition_type = Pertandingan::findOrFail($competition_id)->pluck("type")[0];
             $participants = Peserta::where('pertandingan_id', $competition_id)->get();
 
-            return view("peserta.participant", compact('competition_id', 'participants'));
+            return view("peserta.participant", compact('competition_id', 'participants', 'competition_type'));
         }
         return redirect('/dashboard/competition/' . $competition_id);
     }
@@ -35,8 +37,8 @@ class PesertaController extends Controller
         //
 
         if (Auth()->user()->is_admin) {
-
-            return view("peserta.register", compact('competition_id'));
+            $competition_type = Pertandingan::findOrFail($competition_id)->pluck("type")[0];
+            return view("peserta.register", compact('competition_id', 'competition_type'));
         }
 
         return redirect('/dashboard/competition/' . $competition_id);
@@ -52,17 +54,35 @@ class PesertaController extends Controller
     {
         //
         if (Auth()->user()->is_admin) {
-            $validated = $request->validate([
-                'name' => ['required', 'string', 'max:255'],
-                'identity' => ['required', 'regex:/(([[0-9]{2})(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01]))([0-9]{2})([0-9]{4})/'],
-                'school' => ['required', 'string', 'min:4', 'max:255'],
-            ]);
-            $peserta = Peserta::create([
-                'identity' => $validated["identity"],
-                'name' => $validated["name"],
-                'school' => $validated['school'],
-                'pertandingan_id' => $competition_id,
-            ]);
+            if ($request->comp_type == "Seirama") {
+                $validated = $request->validate([
+                    'name1' => ['required', 'string', 'max:255'],
+                    'name2' => ['required', 'string', 'max:255'],
+                    'identity1' => ['required', 'regex:/(([[0-9]{2})(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01]))([0-9]{2})([0-9]{4})/'],
+                    'identity2' => ['required', 'regex:/(([[0-9]{2})(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01]))([0-9]{2})([0-9]{4})/'],
+                    'school' => ['required', 'string', 'min:4', 'max:255'],
+                ]);
+                $peserta = Peserta::create([
+                    'identity' => $validated["identity1"],
+                    'secondIdentity' => $validated["identity2"],
+                    'name' => $validated["name1"],
+                    'secondName' => $validated["name2"],
+                    'school' => $validated['school'],
+                    'pertandingan_id' => $competition_id,
+                ]);
+            } else {
+                $validated = $request->validate([
+                    'name' => ['required', 'string', 'max:255'],
+                    'identity' => ['required', 'regex:/(([[0-9]{2})(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01]))([0-9]{2})([0-9]{4})/'],
+                    'school' => ['required', 'string', 'min:4', 'max:255'],
+                ]);
+                $peserta = Peserta::create([
+                    'identity' => $validated["identity"],
+                    'name' => $validated["name"],
+                    'school' => $validated['school'],
+                    'pertandingan_id' => $competition_id,
+                ]);
+            }
 
             # code...
             $arrPusingan = Pusingan::where('pertandingan_id', $competition_id)->get();
@@ -100,8 +120,9 @@ class PesertaController extends Controller
     {
         //
         if (Auth()->user()->is_admin) {
+            $competition_type = Pertandingan::findOrFail($competition_id)->pluck("type")[0];
             $participant = Peserta::findOrFail($id);
-            return view("peserta.edit", compact('competition_id', 'participant'));
+            return view("peserta.edit", compact('competition_id', 'participant', 'competition_type'));
         }
     }
 
@@ -116,19 +137,39 @@ class PesertaController extends Controller
     {
         //
         if (Auth()->user()->is_admin) {
-            $validated = $request->validate([
-                'name' => ['required', 'string', 'max:255'],
-                'identity' => ['required', 'regex:/(([[0-9]{2})(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01]))([0-9]{2})([0-9]{4})/'],
-                'school' => ['required', 'string', 'min:4', 'max:255'],
-            ]);
+            if ($request->comp_type == "Seirama") {
+                $validated = $request->validate([
+                    'name1' => ['required', 'string', 'max:255'],
+                    'name2' => ['required', 'string', 'max:255'],
+                    'identity1' => ['required', 'regex:/(([[0-9]{2})(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01]))([0-9]{2})([0-9]{4})/'],
+                    'identity2' => ['required', 'regex:/(([[0-9]{2})(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01]))([0-9]{2})([0-9]{4})/'],
+                    'school' => ['required', 'string', 'min:4', 'max:255'],
+                ]);
 
-            $participant = Peserta::findOrFail($id);
-            $participant->name = $validated['name'];
-            $participant->identity = $validated['identity'];
-            $participant->school = $validated['school'];
-            $participant->update();
+                $participant = Peserta::findOrFail($id);
+                $participant->name = $validated['name1'];
+                $participant->secondName = $validated['name2'];
+                $participant->identity = $validated['identity1'];
+                $participant->secondIdentity = $validated['identity2'];
+                $participant->school = $validated['school'];
+                $participant->update();
 
-            return redirect("/dashboard/competition/" . $competition_id . "/participant");
+                return redirect("/dashboard/competition/" . $competition_id . "/participant");
+            } else {
+                $validated = $request->validate([
+                    'name' => ['required', 'string', 'max:255'],
+                    'identity' => ['required', 'regex:/(([[0-9]{2})(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01]))([0-9]{2})([0-9]{4})/'],
+                    'school' => ['required', 'string', 'min:4', 'max:255'],
+                ]);
+
+                $participant = Peserta::findOrFail($id);
+                $participant->name = $validated['name'];
+                $participant->identity = $validated['identity'];
+                $participant->school = $validated['school'];
+                $participant->update();
+
+                return redirect("/dashboard/competition/" . $competition_id . "/participant");
+            }
         }
         return redirect("/dashboard/competition/" . $competition_id);
     }

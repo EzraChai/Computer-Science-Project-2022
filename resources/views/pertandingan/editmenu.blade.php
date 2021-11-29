@@ -27,6 +27,16 @@
                         </div>
 
                         <div class="mt-4">
+                            <label class="block">
+                                <div class="text-gray-700 mb-1">Jenis Pertandingan</div>
+                                      <span class="label-text mr-1">Solo</span> 
+                                <input type="radio" name="pertandingan-type" class="radio" @if($competition -> type == "Solo") checked @endif value="Solo">
+                                      <span class="label-text ml-4 mr-1">Seirama</span> 
+                                <input type="radio" name="pertandingan-type" class="radio" @if($competition -> type == "Seirama") checked @endif  value="Seirama">
+                            </label>
+                        </div>
+
+                        <div class="mt-4">
                             <span class="text-gray-700">Tarik Pertandingan</span>
                             <div class="mt-2">
                             <label class="inline-flex items-center">
@@ -64,7 +74,7 @@
                                 "
                                 type="submit"
                                 >
-                                Submit
+                                Ubah
                                 </button>
                         </div>
                     </form>

@@ -26,6 +26,11 @@ class CreateMarkahPesertasTable extends Migration
             $table->float("judge_5")->nullable();
             $table->float("judge_6")->nullable();
             $table->float("judge_7")->nullable();
+            $table->float("sync_1")->nullable();
+            $table->float("sync_2")->nullable();
+            $table->float("sync_3")->nullable();
+            $table->float("sync_4")->nullable();
+            $table->float("sync_5")->nullable();
             $table->float("difficulty")->nullable();
             $table->float("penalty")->nullable();
             $table->timestamps();

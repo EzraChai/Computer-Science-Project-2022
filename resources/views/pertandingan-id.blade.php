@@ -49,7 +49,7 @@
                                         <thead>
                                             <tr>
                                                 <th></th> 
-                                                <th>Nama</th> 
+                                                <th>Peserta</th> 
                                                 <th>Pemarkahan</th> 
                                                 <th>Markah</th>
                                                 <th>Jumlah Markah</th>
@@ -57,6 +57,90 @@
                                         </thead> 
                                         <tbody>
                                             @foreach ($participantsMark as $key => $participantMark)
+                                            @if($competition -> type == "Seirama")
+                                             <tr>
+                                                <th>{{$key + 1}}</th> 
+                                                <td>{{$participantMark -> peserta -> name }} <br> {{ $participantMark -> peserta -> secondName}}</td> 
+                                                <td>
+                                                    <div class="flex items-center">
+                                                        <div class="">
+                                                             <div class="text-2xs mx-1 uppercase @if($participantMark -> marks == 0 ) hidden @endif">
+                                                                Pelaksanaan
+                                                            </div>
+                                                            <div class="flex @if($participantMark -> marks == 0 ) hidden @endif">
+                                                                <div class="border border-gray-400 rounded-box px-1 mx-1 ">
+                                                                {{number_format((float)$participantMark -> judge_1,1)}}
+                                                                </div>
+                                                                <div class="border border-gray-400 rounded-box px-1 mx-1">
+                                                                {{number_format((float)$participantMark -> judge_2,1)}}
+                                                                </div>
+                                                                <div class="border border-gray-400 rounded-box px-1 mx-1">
+                                                                {{number_format((float)$participantMark -> judge_3,1)}}
+                                                                </div>
+                                                                <div class="border border-gray-400 rounded-box px-1 mx-1">
+                                                                {{number_format((float)$participantMark -> judge_4,1)}}
+                                                                </div>
+                                                                <div class="border border-gray-400 rounded-box px-1 mx-1">
+                                                                {{number_format((float)$participantMark -> judge_5,1)}}
+                                                                </div>
+                                                                <div class="border border-gray-400 rounded-box px-1 mx-1">
+                                                                {{number_format((float)$participantMark -> judge_6,1)}}
+                                                                </div>
+                                                            </div>
+                                                            <div class="text-2xs mt-2 mx-1 uppercase @if($participantMark -> marks == 0 ) hidden @endif">
+                                                                    Sinkronisasi
+                                                                </div>
+                                                            <div class="flex @if($participantMark -> marks == 0 ) hidden @endif">
+                                                                
+                                                                <div class="border border-gray-400 rounded-box px-1 mx-1 ">
+                                                                {{number_format((float)$participantMark -> sync_1,1)}}
+                                                                </div>
+                                                                <div class="border border-gray-400 rounded-box px-1 mx-1">
+                                                                {{number_format((float)$participantMark -> sync_2,1)}}
+                                                                </div>
+                                                                <div class="border border-gray-400 rounded-box px-1 mx-1">
+                                                                {{number_format((float)$participantMark -> sync_3,1)}}
+                                                                </div>
+                                                                <div class="border border-gray-400 rounded-box px-1 mx-1">
+                                                                {{number_format((float)$participantMark -> sync_4,1)}}
+                                                                </div>
+                                                                <div class="border border-gray-400 rounded-box px-1 mx-1">
+                                                                {{number_format((float)$participantMark -> sync_5,1)}}
+                                                                </div>
+                                                            </div>
+                                                    </div>
+                                                    <div class="">
+                                                        <div class="flex mx-3 items-center @if($participantMark -> marks == 0 ) hidden @endif">
+                                                            <div class="text-2xs mx-1">
+                                                                KESUKARAN
+                                                            </div>
+                                                            <div class="border border-gray-400 rounded-box px-1">
+                                                        {{number_format((float)$participantMark -> difficulty,1)}}
+                                                        </div>
+                                                        <div class="flex mx-3 items-center">
+                                                            <div class="text-2xs mx-1">
+                                                                PENALTI
+                                                            </div>
+                                                            <div class="border border-gray-400 rounded-box px-1">
+                                                        {{number_format((float)$participantMark -> penalty,1)}}
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                    
+                                                </td> 
+                                                <td>
+                                                    <div class="@if($participantMark -> marks == 0) hidden @endif">
+                                                        {{$participantMark -> marks}}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="@if($participantMark -> total_marks == 0) hidden @endif">
+                                                        {{$participantMark -> total_marks}}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            @else
                                             <tr>
                                                 <th>{{$key + 1}}</th> 
                                                 <td>{{$participantMark -> peserta -> name}}</td> 
@@ -116,6 +200,7 @@
                                                     </div>
                                                 </td>
                                             </tr>
+                                            @endif
                                             @endforeach
                                         </tbody>
                                     </table>
