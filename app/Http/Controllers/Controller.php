@@ -91,7 +91,6 @@ class Controller extends BaseController
 
     public function changeStatus($id)
     {
-
         $user = User::findOrFail($id);
 
         $isAdmin = $user->is_admin;

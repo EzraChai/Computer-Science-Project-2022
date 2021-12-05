@@ -18,7 +18,6 @@ class PertandinganController extends Controller
      */
     public function index()
     {
-        //
         if (Auth()->user()->is_admin) {
             return view('pertandingan.menu');
         }
@@ -32,7 +31,6 @@ class PertandinganController extends Controller
      */
     public function create()
     {
-        //
         if (Auth()->user()->is_admin) {
             return view('pertandingan.menu');
         }
@@ -47,7 +45,6 @@ class PertandinganController extends Controller
      */
     public function store(Request $request)
     {
-        //
         if (Auth()->user()->is_admin) {
 
             $validated = $request->validate([
@@ -85,7 +82,6 @@ class PertandinganController extends Controller
      */
     public function show($id)
     {
-        //
         $competition = Pertandingan::findOrFail($id);
         $rounds = $competition->pusingan;
         $participantsCount = Peserta::where("pertandingan_id", $id)->count();
@@ -106,7 +102,6 @@ class PertandinganController extends Controller
      */
     public function edit($id)
     {
-        //
         if (Auth()->user()->is_admin) {
             $competition = Pertandingan::findOrFail($id);
             return view('pertandingan.editmenu', compact('competition'));
@@ -153,17 +148,16 @@ class PertandinganController extends Controller
      */
     public function destroy($id)
     {
-        //
         if (Auth()->user()->is_admin) {
-
             $competition = Pertandingan::findOrFail($id);
             $pusinganId = $competition->pusingan;
+
             for ($i = 0; $i < $pusinganId->count(); $i++) {
                 MarkahPeserta::where("pusingan_id", $i + 1)->delete();
             }
+
             Peserta::where("pertandingan_id", $id)->delete();
             $competition->delete();
-            return redirect('/dashboard');
         }
         return redirect('/dashboard');
     }
@@ -173,9 +167,11 @@ class PertandinganController extends Controller
         $competitions = Cache::remember('competitions', 60, function () {
             return Pertandingan::all();
         });
+
         for ($i = 0; $i < $competitions->count(); $i++) {
             $competitions[$i]->participantName = DB::table("pesertas")->where("pertandingan_id", $competitions[$i]->id)->get();
         };
+
         return view("pertandingan", compact("competitions"));
     }
 
@@ -184,20 +180,24 @@ class PertandinganController extends Controller
         $competition = Pertandingan::findOrFail($id);
         $rounds = $competition->pusingan;
         $participantsCount = Peserta::where("pertandingan_id", $id)->count();
+
         if ($competition->type == "Seirama") {
             $participantsCount *= 2;
         }
 
-        $overallParticipantsMark = null;
+        $overallParticipantsMark = array();
+
         for ($i = 0; $i < $rounds->count(); $i++) {
             $participantsMark = MarkahPeserta::where('pusingan_id', $rounds[$i]->id)->orderBy("total_marks", "DESC")->get();
-            $overallParticipantsMark[$i] = $participantsMark;
+            array_push($overallParticipantsMark, $participantsMark);
         }
+
         $lastParticipantMark = $overallParticipantsMark[count($overallParticipantsMark) - 1];
-        $lastFirstThreeParticipantMark = null;
+        $lastFirstThreeParticipantMark = array();
+
         try {
             for ($i = 0; $i < 3; $i++) {
-                $lastFirstThreeParticipantMark[$i] = $lastParticipantMark[$i];
+                array_push($lastFirstThreeParticipantMark, $lastParticipantMark[$i]);
             }
         } catch (\Throwable $th) {
             $lastFirstThreeParticipantMark = $lastParticipantMark;

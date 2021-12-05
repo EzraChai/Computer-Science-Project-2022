@@ -34,8 +34,6 @@ class PesertaController extends Controller
      */
     public function create($competition_id)
     {
-        //
-
         if (Auth()->user()->is_admin) {
             $competition_type = Pertandingan::findOrFail($competition_id)->type;
             return view("peserta.register", compact('competition_id', 'competition_type'));
@@ -52,7 +50,6 @@ class PesertaController extends Controller
      */
     public function store(Request $request, $competition_id)
     {
-        //
         if (Auth()->user()->is_admin) {
             if ($request->comp_type == "Seirama") {
                 $validated = $request->validate([
@@ -107,7 +104,6 @@ class PesertaController extends Controller
      */
     public function edit($competition_id, $id)
     {
-        //
         if (Auth()->user()->is_admin) {
             $competition_type = Pertandingan::findOrFail($competition_id)->type;
             $participant = Peserta::findOrFail($id);
@@ -124,7 +120,6 @@ class PesertaController extends Controller
      */
     public function update(Request $request, $competition_id, $id)
     {
-        //
         if (Auth()->user()->is_admin) {
             if ($request->comp_type == "Seirama") {
                 $validated = $request->validate([
@@ -171,7 +166,6 @@ class PesertaController extends Controller
      */
     public function destroy($competition_id, $id)
     {
-        //
         if (Auth()->user()->is_admin) {
             MarkahPeserta::where("peserta_id", $id)->delete();
 

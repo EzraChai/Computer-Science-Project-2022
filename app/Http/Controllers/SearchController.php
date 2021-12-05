@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\DB;
 
 class SearchController extends Controller
 {
-    //
     public function query(Request $request)
     {
         $competitions = null;
