@@ -43,7 +43,7 @@
                 </div>
             @endif
             <div class="mt-4">
-                <x-jet-label for="school" value="{{ __('Sekolah') }}" />
+                <x-jet-label for="school" value="{{ __('Asal') }}" />
                 <x-jet-input id="school" class="block mt-1 w-full placeholder-gray-400" type="text" name="school" placeholder="SMK Tinggi Port Dickson" value="{{old('school') ?? $participant -> school}}" required />
             </div>
 

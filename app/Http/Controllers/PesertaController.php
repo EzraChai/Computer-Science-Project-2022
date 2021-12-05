@@ -19,7 +19,7 @@ class PesertaController extends Controller
     {
         //
         if (Auth()->user()->is_admin) {
-            $competition_type = Pertandingan::findOrFail($competition_id)->pluck("type")[0];
+            $competition_type = Pertandingan::findOrFail($competition_id)->type;
             $participants = Peserta::where('pertandingan_id', $competition_id)->get();
 
             return view("peserta.participant", compact('competition_id', 'participants', 'competition_type'));
@@ -37,7 +37,7 @@ class PesertaController extends Controller
         //
 
         if (Auth()->user()->is_admin) {
-            $competition_type = Pertandingan::findOrFail($competition_id)->pluck("type")[0];
+            $competition_type = Pertandingan::findOrFail($competition_id)->type;
             return view("peserta.register", compact('competition_id', 'competition_type'));
         }
 
@@ -84,9 +84,8 @@ class PesertaController extends Controller
                 ]);
             }
 
-            # code...
             $arrPusingan = Pusingan::where('pertandingan_id', $competition_id)->get();
-            for ($i = 0; $i < 6; $i++) {
+            for ($i = 0; $i < 5; $i++) {
                 MarkahPeserta::create([
                     'peserta_id' => $peserta->id,
                     'pusingan_id' => $arrPusingan[$i]->id,
@@ -99,16 +98,6 @@ class PesertaController extends Controller
         return redirect('/dashboard/competition/' . $competition_id);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -120,7 +109,7 @@ class PesertaController extends Controller
     {
         //
         if (Auth()->user()->is_admin) {
-            $competition_type = Pertandingan::findOrFail($competition_id)->pluck("type")[0];
+            $competition_type = Pertandingan::findOrFail($competition_id)->type;
             $participant = Peserta::findOrFail($id);
             return view("peserta.edit", compact('competition_id', 'participant', 'competition_type'));
         }

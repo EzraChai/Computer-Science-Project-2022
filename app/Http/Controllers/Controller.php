@@ -58,16 +58,18 @@ class Controller extends BaseController
     {
         if (Auth()->user()->is_admin) {
             $validated = $request->validate([
-                'name' => ['required', 'string', 'max:255'],
+                'name' => ['required', 'string', 'unique:users', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'accountType' => 'required',
                 'password' => ['required', 'string', new Password, 'confirmed'],
             ]);
 
+            dd($validated['accountType']);
+
             User::create([
                 'name' => $validated["name"],
                 'email' => $validated["email"],
-                'is_admin' => $validated["accountType"] == 'hakim' ? false : true,
+                'is_admin' => $validated["accountType"] == 'urusSetia',
                 'password' => Hash::make($validated['password']),
             ]);
         }

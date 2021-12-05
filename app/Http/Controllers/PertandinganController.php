@@ -70,7 +70,6 @@ class PertandinganController extends Controller
                 ['round' => 3],
                 ['round' => 4],
                 ['round' => 5],
-                ['round' => 6],
             ]);
 
             return redirect('/dashboard');
@@ -194,6 +193,16 @@ class PertandinganController extends Controller
             $participantsMark = MarkahPeserta::where('pusingan_id', $rounds[$i]->id)->orderBy("total_marks", "DESC")->get();
             $overallParticipantsMark[$i] = $participantsMark;
         }
-        return view('pertandingan-id', compact('competition', 'rounds', 'participantsCount', 'overallParticipantsMark'));
+        $lastParticipantMark = $overallParticipantsMark[count($overallParticipantsMark) - 1];
+        $lastFirstThreeParticipantMark = null;
+        try {
+            for ($i = 0; $i < 3; $i++) {
+                $lastFirstThreeParticipantMark[$i] = $lastParticipantMark[$i];
+            }
+        } catch (\Throwable $th) {
+            $lastFirstThreeParticipantMark = $lastParticipantMark;
+        }
+
+        return view('pertandingan-id', compact('competition', 'rounds', 'participantsCount', 'overallParticipantsMark', 'lastFirstThreeParticipantMark'));
     }
 }

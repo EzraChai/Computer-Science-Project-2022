@@ -28,6 +28,9 @@
                     class="form-radio radio"
                     name="accountType"
                     value="urusSetia"
+                    @if(old("accountType") == "urusSetia")
+                        checked
+                    @endif
                     />
                     <span class="ml-2">Urus Setia</span>
                 </label>
@@ -37,7 +40,9 @@
                     class="form-radio radio"
                     name="accountType"
                     value="hakim"
-                    checked
+                    @if(old("accountType") == "hakim" || old("accountType") == null)
+                        checked
+                    @endif
                     />
                     <span class="ml-2">Hakim</span>
                 </label>

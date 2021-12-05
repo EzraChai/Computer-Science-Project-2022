@@ -18,7 +18,7 @@
         </div>
               <h1 class="text-5xl text-font text-center mb-16 splitText text-font-2">Pertandingan</h1>
                     @if(count($competitions) == 0 )
-                        <div class="text-center text-xl text-gray-700">😥 Opps... Pertandingan yang anda ingin cari tidak dapat dicari.</div>
+                        <div class="text-center text-xl mb-12 text-gray-700">😥 Opps... Pertandingan yang anda ingin cari tidak dapat dicari.</div>
                     @endif
 
                 <div class="max-w-7xl mx-auto lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">

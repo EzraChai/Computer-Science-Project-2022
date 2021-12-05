@@ -27,10 +27,6 @@ Route::get('/competition/{id}', [PertandinganController::class, 'competitionWith
 Route::get("/search/query", [SearchController::class, 'query']);
 
 
-// Route::middleware(['auth:sanctum', 'verified'], function () {
-//     Route::get('/dashboard', [Controller::class, 'index'])->name('dashboard');
-// });
-
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/dashboard', [Controller::class, 'index'])->name('dashboard');
 

@@ -13,25 +13,45 @@ class SearchController extends Controller
     public function query(Request $request)
     {
         $competitions = null;
+        $text = $request->search;
+
         if ($request->has('search')) {
             $competitions = Pertandingan::search($request->search)->get();
             $participants = Peserta::where("name", "like", "%" . $request->search . "%")->get();
-            if ($participants) {
-                $competitionsCount = $competitions->count();
-                foreach ($participants as $key => $participant) {
-                    if ($competitionsCount == 0) {
-                        $competitions[$key] = DB::table("pertandingans")->find($participant->pertandingan_id);
-                    } else {
-                        $competitions[$competitionsCount + $key] = Pertandingan::find($participant->pertandingan_id);
+            $participants2 = Peserta::where("secondName", "like", "%" . $request->search . "%")->get();
+            foreach ($participants2 as $key => $participant) {
+                if ($participants->count() == 0) {
+                    $participants = $participants2;
+                } else {
+                    $participantsLength = $participants->count();
+                    for ($i = 0; $i < $participantsLength; $i++) {
+                        $participants[$participantsLength + $i] = $participant;
                     }
                 }
             }
-            $arr_id = null;
-            for ($i = 0; $i < $competitions->count(); $i++) {
-                $arr_id[$i] = $competitions[$i]->id;
+
+            $competitionsCount = $competitions->count();
+            foreach ($participants as $key => $participant) {
+                if ($competitionsCount == 0) {
+                    $competitions[$key] = DB::table("pertandingans")->find($participant->pertandingan_id);
+                } else {
+                    $competitions[$competitionsCount + $key] = Pertandingan::find($participant->pertandingan_id);
+                }
             }
-            $arr_id = array_flip($arr_id);
-            $arr_id = array_flip($arr_id);
+            $arr_id = array();
+            for ($i = 0; $i < $competitions->count(); $i++) {
+                array_push($arr_id, $competitions[$i]->id);
+            }
+
+            //  If there is no competiton then return no conpetition
+            if ($arr_id == null) {
+                $competitions = array();
+                return view("pertandingan", compact("competitions", "text"));
+            }
+
+            // Remove same element from an array
+            $arr_id = array_unique($arr_id);
+
 
             $competitions = null;
             $counter = 0;
@@ -42,12 +62,9 @@ class SearchController extends Controller
             }
 
             for ($i = 0; $i < count($competitions); $i++) {
-                $competitions[$i]->participantName = DB::table("pesertas")->where("pertandingan_id", $competitions[$i]->id)->pluck("name");
+                $competitions[$i]->participantName = DB::table("pesertas")->where("pertandingan_id", $competitions[$i]->id)->get();
             };
+            return view("pertandingan", compact("competitions", "text"));
         }
-
-        $text = $request->search;
-
-        return view("pertandingan", compact("competitions", "text"));
     }
 }

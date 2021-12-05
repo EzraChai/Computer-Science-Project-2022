@@ -51,9 +51,13 @@ class HakimController extends Controller
             $marks->difficulty = $validated['difficulty'];
             $marks->penalty = $validated['penalty'];
 
-            $judgesMarks = array($validated['judge-1'], $validated['judge-2'], $validated['judge-3'], $validated['judge-4'], $validated['judge-5'], $validated['judge-6']);
+            $judgesfirstDiverMarks = array($validated['judge-1'], $validated['judge-2'], $validated['judge-3']);
+            $judgesSecondDiverMarks = array($validated['judge-4'], $validated['judge-5'], $validated['judge-6']);
             $syncMarks = array($validated['sync_1'], $validated['sync_2'], $validated['sync_3'], $validated['sync_4'], $validated['sync_5']);
-            sort($judgesMarks);
+
+            // Sort the marks given by the judges
+            sort($judgesfirstDiverMarks);
+            sort($judgesSecondDiverMarks);
             sort($syncMarks);
 
             // Remove the highest mark and the lowest from the Syncronisation's marks
@@ -61,18 +65,18 @@ class HakimController extends Controller
             array_shift($syncMarks);
 
             // Removet two highest mark and lowest mark from the Execution's marks
-            array_pop($judgesMarks);
-            array_shift($judgesMarks);
-            array_pop($judgesMarks);
-            array_shift($judgesMarks);
+            array_pop($judgesfirstDiverMarks);
+            array_shift($judgesfirstDiverMarks);
+            array_pop($judgesSecondDiverMarks);
+            array_shift($judgesSecondDiverMarks);
 
             // The highest and lowest scores for each diver, as well as for the pair’s synchronization, are removed, leaving five remaining scores (one per diver, plus three for synchronization).
             // The sum of those scores is then multiplied by 0.6 in order to roughly align it to an individual event score, where only three judges’ scores count.
             // Finally, the resulting figure is multiplied by the degree of difficulty to achieve the dive’s official score.  
-            $marksGivenByJudges = ((array_sum($judgesMarks) + array_sum($syncMarks)) * 0.6 * $validated['difficulty']) - $validated['penalty'];
+            $marksGivenByJudges = ((array_sum($judgesfirstDiverMarks) + array_sum($judgesSecondDiverMarks) + array_sum($syncMarks)) * 0.6 * $validated['difficulty']) - $validated['penalty'];
             $marks->marks = $marksGivenByJudges;
 
-            if ($marks->pusingan_id == 1 || $marks->pusingan_id % 7 == 0) {
+            if ($marks->pusingan_id == 1 || $marks->pusingan_id - 1 % 5 == 0) {
                 $marks->total_marks = $marksGivenByJudges;
             } else {
                 $previousParticipantMarks = MarkahPeserta::find($validated['participant-mark-id'] - 1);
@@ -120,7 +124,8 @@ class HakimController extends Controller
             $marksGivenByJudges = (array_sum($judgesMarks) * $validated['difficulty']) - $validated['penalty'];
             $marks->marks = $marksGivenByJudges;
 
-            if ($marks->pusingan_id == 1 || $marks->pusingan_id % 7 == 0) {
+
+            if ($marks->pusingan_id == 1 || $marks->pusingan_id - 1 % 5 == 0) {
                 $marks->total_marks = $marksGivenByJudges;
             } else {
                 $previousParticipantMarks = MarkahPeserta::find($validated['participant-mark-id'] - 1);
@@ -172,10 +177,13 @@ class HakimController extends Controller
             $marks->sync_5 = $validated['sync_5'];
             $marks->difficulty = $validated['difficulty'];
             $marks->penalty = $validated['penalty'];
-
-            $judgesMarks = array($validated['judge-1'], $validated['judge-2'], $validated['judge-3'], $validated['judge-4'], $validated['judge-5'], $validated['judge-6']);
+            $judgesfirstDiverMarks = array($validated['judge-1'], $validated['judge-2'], $validated['judge-3']);
+            $judgesSecondDiverMarks = array($validated['judge-4'], $validated['judge-5'], $validated['judge-6']);
             $syncMarks = array($validated['sync_1'], $validated['sync_2'], $validated['sync_3'], $validated['sync_4'], $validated['sync_5']);
-            sort($judgesMarks);
+
+            // Sort the marks given by the judges
+            sort($judgesfirstDiverMarks);
+            sort($judgesSecondDiverMarks);
             sort($syncMarks);
 
             // Remove the highest mark and the lowest from the Syncronisation's marks
@@ -183,18 +191,19 @@ class HakimController extends Controller
             array_shift($syncMarks);
 
             // Removet two highest mark and lowest mark from the Execution's marks
-            array_pop($judgesMarks);
-            array_shift($judgesMarks);
-            array_pop($judgesMarks);
-            array_shift($judgesMarks);
+            array_pop($judgesfirstDiverMarks);
+            array_shift($judgesfirstDiverMarks);
+            array_pop($judgesSecondDiverMarks);
+            array_shift($judgesSecondDiverMarks);
+
 
             // The highest and lowest scores for each diver, as well as for the pair’s synchronization, are removed, leaving five remaining scores (one per diver, plus three for synchronization).
             // The sum of those scores is then multiplied by 0.6 in order to roughly align it to an individual event score, where only three judges’ scores count.
             // Finally, the resulting figure is multiplied by the degree of difficulty to achieve the dive’s official score.  
-            $marksGivenByJudges = ((array_sum($judgesMarks) + array_sum($syncMarks)) * 0.6 * $validated['difficulty']) - $validated['penalty'];
+            $marksGivenByJudges = ((array_sum($judgesfirstDiverMarks) + array_sum($judgesSecondDiverMarks) + array_sum($syncMarks)) * 0.6 * $validated['difficulty']) - $validated['penalty'];
             $marks->marks = $marksGivenByJudges;
 
-            if ($marks->pusingan_id == 1 || $marks->pusingan_id % 7 == 0) {
+            if ($marks->pusingan_id == 1 || $marks->pusingan_id - 1 % 5 == 0) {
                 $marks->total_marks = $marksGivenByJudges;
             } else {
                 $previousParticipantMarks = MarkahPeserta::find($validated['participant-mark-id'] - 1);
@@ -242,7 +251,7 @@ class HakimController extends Controller
             $marksGivenByJudges = (array_sum($judgesMarks) * $validated['difficulty']) - $validated['penalty'];
             $marks->marks = $marksGivenByJudges;
 
-            if ($marks->pusingan_id == 1 || $marks->pusingan_id % 7 == 0) {
+            if ($marks->pusingan_id == 1 || $marks->pusingan_id - 1 % 5 == 0) {
                 $marks->total_marks = $marksGivenByJudges;
             } else {
                 $previousParticipantMarks = MarkahPeserta::find($validated['participant-mark-id'] - 1);

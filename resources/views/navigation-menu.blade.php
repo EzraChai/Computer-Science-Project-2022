@@ -17,7 +17,7 @@
                     </x-jet-nav-link>
                     @can('admin')
                         <x-jet-nav-link href="{{ route('user') }}" :active="request()->routeIs('user')">
-                            {{ __('User') }}
+                            {{ __('Pengguna') }}
                         </x-jet-nav-link>
                     @endcan
                 </div>
