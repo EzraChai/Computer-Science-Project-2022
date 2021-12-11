@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\MarkahPeserta;
 use App\Models\Pertandingan;
 use App\Models\Peserta;
+use App\Models\Pusingan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -68,8 +69,6 @@ class PertandinganController extends Controller
                 ['round' => 4],
                 ['round' => 5],
             ]);
-
-            return redirect('/dashboard');
         }
         return redirect('/dashboard');
     }
@@ -86,10 +85,10 @@ class PertandinganController extends Controller
         $rounds = $competition->pusingan;
         $participantsCount = Peserta::where("pertandingan_id", $id)->count();
 
-        $overallParticipantsMark = null;
+        $overallParticipantsMark = array();
         for ($i = 0; $i < $rounds->count(); $i++) {
             $participantsMark = MarkahPeserta::where('pusingan_id', $rounds[$i]->id)->orderBy("total_marks", "DESC")->get();
-            $overallParticipantsMark[$i] = $participantsMark;
+            array_push($overallParticipantsMark, $participantsMark);
         }
         return view('pertandingan.show', compact('competition', 'rounds', 'participantsCount', 'overallParticipantsMark'));
     }
@@ -124,18 +123,14 @@ class PertandinganController extends Controller
                 'pertandingan-tajuk' => 'required|max:255',
                 'pertandingan-avenue' => 'required|max:255',
                 'pertandingan-date' => 'required',
-                'pertandingan-type' => 'required'
             ]);
             $competition = Pertandingan::findOrFail($id);
 
             $competition->name = $validated['pertandingan-tajuk'];
             $competition->avenue = $validated['pertandingan-avenue'];
             $competition->date = $validated['pertandingan-date'];
-            $competition->type = $validated['pertandingan-type'];
 
             $competition->update();
-
-            return redirect('/dashboard');
         }
         return redirect('/dashboard');
     }
@@ -151,11 +146,15 @@ class PertandinganController extends Controller
         if (Auth()->user()->is_admin) {
             $competition = Pertandingan::findOrFail($id);
             $pusinganId = $competition->pusingan;
+            // dd($pusinganId);
 
             for ($i = 0; $i < $pusinganId->count(); $i++) {
-                MarkahPeserta::where("pusingan_id", $i + 1)->delete();
+                MarkahPeserta::where("pusingan_id", $pusinganId[$i] -> id)->delete();
             }
 
+            for ($i=0; $i < $pusinganId->count(); $i++) { 
+                Pusingan::where("id", $pusinganId[$i] -> id) -> delete();
+            }
             Peserta::where("pertandingan_id", $id)->delete();
             $competition->delete();
         }
@@ -165,7 +164,7 @@ class PertandinganController extends Controller
     public function competition()
     {
         $competitions = Cache::remember('competitions', 60, function () {
-            return Pertandingan::all();
+            return Pertandingan::all()->sortByDesc("created_at");
         });
 
         for ($i = 0; $i < $competitions->count(); $i++) {

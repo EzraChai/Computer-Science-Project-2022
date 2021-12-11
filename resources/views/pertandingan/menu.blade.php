@@ -14,14 +14,14 @@
                 <h2 class="font-semibold text-xl text-gray-800 mb-6 leading-tight">Menganjurkan Pertandingan</h2>
 
                         <label class="block">
-                            <span class="text-gray-700">Nama Pertandingan</span>
-                            <input name="pertandingan-name" class="form-input placeholder-gray-400 mt-1 block border border-gray-400 text-gray-800  w-full p-2 @error('pertandingan-name') border-red-500 @enderror" placeholder="Pertandingan Terjun Peringkat Kebangsaan" value="{{old('pertandingan-name')}}"/>
+                            <span class="text-gray-700">Tajuk Pertandingan</span>
+                            <input name="pertandingan-name" class="form-input placeholder-gray-400 mt-1 block border text-gray-800  w-full p-2 @error('pertandingan-name') border-red-500 @enderror" placeholder="Pertandingan Terjun Peringkat Kebangsaan" value="{{old('pertandingan-name')}}"/>
                         </label>
 
-                        <div class="mt-4">
+                        <div class="mt-4">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
                             <label class="block">
                                 <span class="text-gray-700">Tempat Pertandingan</span>
-                                <input name="pertandingan-avenue" class="form-input text-gray-800 placeholder-gray-400 mt-1 border border-gray-400 block w-full p-2 @error('pertandingan-avenue') border-red-500 @enderror" placeholder="Kompleks Sukan Malaysia" value="{{old('pertandingan-avenue')}}" />
+                                <input name="pertandingan-avenue" class="form-input text-gray-800 placeholder-gray-400 mt-1 border block w-full p-2 @error('pertandingan-avenue') border-red-500 @enderror" placeholder="Kompleks Sukan Malaysia" value="{{old('pertandingan-avenue')}}" />
                             </label>
                         </div>
 
@@ -29,9 +29,9 @@
                             <label class="block">
                                 <div class="text-gray-700 mb-1">Jenis Pertandingan</div>
                                       <span class="label-text mr-1">Solo</span> 
-                                <input type="radio" name="pertandingan-type" checked class="radio" value="Solo">
+                                <input type="radio" name="pertandingan-type" @if(old("pertandingan-type") == "Solo" || old("pertandingan-type") == null) checked @endif class="radio" value="Solo">
                                       <span class="label-text ml-4 mr-1">Seirama</span> 
-                                <input type="radio" name="pertandingan-type" class="radio" value="Seirama">
+                                <input type="radio" name="pertandingan-type" class="radio" @if(old("pertandingan-type") == "Seirama") checked @endif value="Seirama">
                             </label>
                         </div>
 

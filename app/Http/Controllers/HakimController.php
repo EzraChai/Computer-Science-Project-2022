@@ -74,16 +74,6 @@ class HakimController extends Controller
             // The sum of those scores is then multiplied by 0.6 in order to roughly align it to an individual event score, where only three judges’ scores count.
             // Finally, the resulting figure is multiplied by the degree of difficulty to achieve the dive’s official score.  
             $marksGivenByJudges = ((array_sum($judgesfirstDiverMarks) + array_sum($judgesSecondDiverMarks) + array_sum($syncMarks)) * 0.6 * $validated['difficulty']) - $validated['penalty'];
-            $marks->marks = $marksGivenByJudges;
-
-            if ($marks->pusingan_id == 1 || $marks->pusingan_id - 1 % 5 == 0) {
-                $marks->total_marks = $marksGivenByJudges;
-            } else {
-                $previousParticipantMarks = MarkahPeserta::find($validated['participant-mark-id'] - 1);
-                $marks->total_marks = $marksGivenByJudges + $previousParticipantMarks->total_marks;
-            }
-            $marks->update();
-            return redirect("/dashboard/competition/" . $competition_id);
         } else {
             $validator = Validator::make($request->all(), [
                 'judge-1' => 'required|numeric|between:0,10',
@@ -122,18 +112,18 @@ class HakimController extends Controller
             array_pop($judgesMarks);
             array_shift($judgesMarks);
             $marksGivenByJudges = (array_sum($judgesMarks) * $validated['difficulty']) - $validated['penalty'];
-            $marks->marks = $marksGivenByJudges;
-
-
-            if ($marks->pusingan_id == 1 || $marks->pusingan_id - 1 % 5 == 0) {
-                $marks->total_marks = $marksGivenByJudges;
-            } else {
-                $previousParticipantMarks = MarkahPeserta::find($validated['participant-mark-id'] - 1);
-                $marks->total_marks = $marksGivenByJudges + $previousParticipantMarks->total_marks;
-            }
-            $marks->update();
-            return redirect("/dashboard/competition/" . $competition_id);
         }
+        $marks->marks = $marksGivenByJudges;
+
+
+        if ($marks->pusingan_id == 1 || ($marks->pusingan_id - 1) % 5 == 0) {
+            $marks->total_marks = $marksGivenByJudges;
+        } else {
+            $previousParticipantMarks = MarkahPeserta::find($validated['participant-mark-id'] - 1);
+            $marks->total_marks = $marksGivenByJudges + $previousParticipantMarks->total_marks;
+        }
+        $marks->update();
+        return redirect("/dashboard/competition/" . $competition_id);
     }
 
     public function changeMarks(Request $request, $competition_id)
@@ -201,16 +191,6 @@ class HakimController extends Controller
             // The sum of those scores is then multiplied by 0.6 in order to roughly align it to an individual event score, where only three judges’ scores count.
             // Finally, the resulting figure is multiplied by the degree of difficulty to achieve the dive’s official score.  
             $marksGivenByJudges = ((array_sum($judgesfirstDiverMarks) + array_sum($judgesSecondDiverMarks) + array_sum($syncMarks)) * 0.6 * $validated['difficulty']) - $validated['penalty'];
-            $marks->marks = $marksGivenByJudges;
-
-            if ($marks->pusingan_id == 1 || $marks->pusingan_id - 1 % 5 == 0) {
-                $marks->total_marks = $marksGivenByJudges;
-            } else {
-                $previousParticipantMarks = MarkahPeserta::find($validated['participant-mark-id'] - 1);
-                $marks->total_marks = $marksGivenByJudges + $previousParticipantMarks->total_marks;
-            }
-            $marks->update();
-            return redirect("/dashboard/competition/" . $competition_id);
         } else {
             $validator = Validator::make($request->all(), [
                 'judge-1' => 'required|numeric|between:0,10',
@@ -249,16 +229,17 @@ class HakimController extends Controller
             array_pop($judgesMarks);
             array_shift($judgesMarks);
             $marksGivenByJudges = (array_sum($judgesMarks) * $validated['difficulty']) - $validated['penalty'];
-            $marks->marks = $marksGivenByJudges;
-
-            if ($marks->pusingan_id == 1 || $marks->pusingan_id - 1 % 5 == 0) {
-                $marks->total_marks = $marksGivenByJudges;
-            } else {
-                $previousParticipantMarks = MarkahPeserta::find($validated['participant-mark-id'] - 1);
-                $marks->total_marks = $marksGivenByJudges + $previousParticipantMarks->total_marks;
-            }
-            $marks->update();
-            return redirect("/dashboard/competition/" . $competition_id);
         }
+        
+        $marks->marks = $marksGivenByJudges;
+
+        if ($marks->pusingan_id == 1 || ($marks->pusingan_id - 1) % 5 == 0) {
+            $marks->total_marks = $marksGivenByJudges;
+        } else {
+            $previousParticipantMarks = MarkahPeserta::find($validated['participant-mark-id'] - 1);
+            $marks->total_marks = $marksGivenByJudges + $previousParticipantMarks->total_marks;
+        }
+        $marks->update();
+        return redirect("/dashboard/competition/" . $competition_id);
     }
 }
