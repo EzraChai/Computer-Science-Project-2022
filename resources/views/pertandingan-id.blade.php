@@ -8,7 +8,7 @@
                         <div class="flex-row items-center space-x-4 card-body">
                             <div class="flex-1">
                                 <p class="text-base-content text-opacity-60">Tajuk Pertandingan</p>
-                                <h1 class="card-title text-YInMnBlue text-font-2 font-extrabold text-4xl">
+                                <h1 class="card-title text-YInMnBlue font-extrabold text-4xl">
                                     {{ $competition->name }}
                                 </h1>
                             </div>

@@ -20,11 +20,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [Controller::class, 'home']);
 
-Route::get('/competition', [PertandinganController::class, 'competition']);
+Route::get('/competitions', [PertandinganController::class, 'competition']);
 
-Route::get('/competition/{id}', [PertandinganController::class, 'competitionWithId']);
+Route::get("/competitions/query", [SearchController::class, 'query']);
 
-Route::get("/search/query", [SearchController::class, 'query']);
+Route::get('/competitions/{id}', [PertandinganController::class, 'competitionWithId']);
 
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {

@@ -18,7 +18,7 @@ module.exports = {
                 Tumbleweed: '#EAAC8B',
             },
             fontFamily: {
-                sans: ['Nunito', ...defaultTheme.fontFamily.sans],
+                sans: ['Poppins', ...defaultTheme.fontFamily.sans],
             },
         },
     },
