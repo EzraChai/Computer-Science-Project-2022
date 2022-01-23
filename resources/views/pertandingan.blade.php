@@ -1,8 +1,8 @@
 <x-public-page>
     <div class="py-12 min-h-16">
         <div class="py-12"></div>
-        <div class="max-w-2xl m-auto">
-            <form action="/competitions/query" method="GET">
+        <div data-scroll-section class="max-w-2xl m-auto">
+            <form data-scroll data-scroll-speed="-1.5" action="/competitions/query" method="GET">
                 @csrf
                 <div class=" mb-24 form-control">
                     <div class="flex space-x-2">
@@ -19,16 +19,19 @@
                 </div>
             </form>
         </div>
-        <h1 class="text-5xl text-font text-center mb-16 splitText text-font-2">Pertandingan</h1>
+        <div data-scroll-section>
+          <h1 data-scroll data-scroll-speed="1.5" class="text-5xl text-font text-center mb-16 splitText text-font-2">Pertandingan</h1>
         @if (count($competitions) == 0)
             <div class="text-center text-xl mb-12 text-gray-700">😥 Opps... Pertandingan yang anda ingin cari tidak dapat
                 dicari.</div>
         @endif
 
-        <div class="max-w-7xl mx-auto lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+        </div>
+      
+        <div data-scroll-section class="max-w-7xl mx-auto lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
 
             @foreach ($competitions as $competition)
-                <a href="/competitions/{{ $competition->id }}"
+                <a data-scroll href="/competitions/{{ $competition->id }}"
                     class="card shadow-2xl lg:card-side bg-white text-primary-content transform transition hover:scale-105" onmouseenter="handleHover(event)" onmouseleave="handleHoverOut(event)" >
                     <div class="card-body">
                         <h1 class=" text-xl text-font-2">{{ $competition->name }}</h1>

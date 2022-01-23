@@ -3,7 +3,7 @@
     <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex flex-row w-full">
-                <div class="grid grid-cols-1 gap-6 lg:p-10 xl:grid-cols-3 w-full rounded-box">
+                <div data-scroll-section class="grid grid-cols-1 gap-6 lg:p-10 xl:grid-cols-3 w-full rounded-box">
                     <div class="card transform hover:-translate-y-2 transition shadow-lg side col-span-2  bg-base-100">
                         <div class="flex-row items-center space-x-4 card-body">
                             <div class="flex-1">
@@ -94,7 +94,7 @@
                         <div class="card-body text-gray-800">
                             @foreach ($overallParticipantsMark as $key2 => $participantsMark)
                                 <div class="collapse w-full mt-4 shadow-sm collapse-arrow">
-                                    <input type="checkbox" />
+                                    <input onclick="handleClick()" type="checkbox" />
                                     <div class="collapse-title text-xl font-medium">
                                         Pusingan ke-{{ $key2 + 1 }}
                                     </div>
@@ -331,4 +331,9 @@
         </div>
     </div>
     <div class="p-10"></div>
+    <script>
+        const handleClick = () => {
+            scroll.update()
+        }
+    </script>
 </x-public-page>

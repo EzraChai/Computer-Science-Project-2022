@@ -25,11 +25,17 @@
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
-
+        <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.3/dist/locomotive-scroll.min.js" integrity="sha256-NRJTrhZgAnjGqLP0lFQk+uslZrlV5M+z3efWGCMZQAU=" crossorigin="anonymous"></script>
     </head>
     <body>
-        <div data-theme="cmyk" class="font-sans bg-base-200 text-gray-900 antialiased">
+        <div data-theme="cmyk" data-scroll-container class="font-sans bg-base-200 text-gray-900 antialiased">
             {{ $slot }}
         </div>
     </body>
+    <script>
+           const scroll = new LocomotiveScroll({
+         el: document.querySelector('[data-scroll-container]'),
+    smooth: true
+});
+    </script>
 </html>

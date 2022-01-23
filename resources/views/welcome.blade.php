@@ -1,43 +1,25 @@
 <x-public-page>
-    <div class="main-page relative bg-base-100 min-h-[90vh] w-full flex items-center justify-center">
+    <div data-scroll-section class="main-page relative bg-base-100 min-h-[90vh] w-full flex items-center justify-center">
             <video muted loop autoplay preload="auto" class="w-full h-full absolute object-cover bg-zinc-800">
                 <source src="/Monodivingolympicintro(1).webm" type="video/webm">
                     Your Browser does not support the video.
             </video>
-            <div class="absolute z-30 text-white mb-24">
+            <div data-scroll data-scroll-speed="2" class="absolute z-30 text-white mb-24">
                 <div class="bg-zinc-100 w-[0.3rem] h-[7.5rem] absolute left-[-28px] rounded-xs"></div>
                 <div class="w-full h-full overflow-hidden">
-                    <h1 class="text-8xl primary-title title-font font-bold">Pertandingan <span class="text-cyan-500">Terjun</span></h1>
+                    <h1 data-scroll class="text-8xl primary-title title-font font-bold">Pertandingan <span class="text-cyan-500">Terjun</span></h1>
                 </div>
                 <div class="w-full h-full overflow-hidden">
-                    <h4 class="text-xl text-zinc-100 secondary-title title-font font-bold ml-2">Cepat & Tepat.</h4>
+                    <h4 data-scroll class="text-xl text-zinc-100 secondary-title title-font font-bold ml-2">Cepat & Tepat.</h4>
                 </div>
             </div>
     </div>
-    {{-- <div class="min-h-screen bg-base-200">
-        <div class="text-center">
-            <div class="w-full">
-                <div class="cursor"></div>
-                <div class="shapes">
-                    <div class="shape shape-1"></div>
-                    <div class="shape shape-2"></div>
-                    <div class="shape shape-3"></div>
-                </div>
-                <div class="content">
-                    <div class="texthere">
-                        <h1 class=" text-9xl font-extrabold">Pertandingan Terjun</h1>
-                        <h1 class=" illusion opacity-25 text-9xl font-extrabold">Pertandingan Terjun</h1>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-        <svg class="absolute wave-1 bottom-[15px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#f5f5f5" fill-opacity="1" d="M0,128L48,144C96,160,192,192,288,176C384,160,480,96,576,101.3C672,107,768,181,864,213.3C960,245,1056,235,1152,208C1248,181,1344,139,1392,117.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
-    <div id="pertandingan" class="relative py-20">
-        <h1 class="text-5xl text-font text-center mb-16 splitText text-font-2">Pertandingan</h1>
+        <svg data-scroll-section class="absolute wave-1 bottom-[15px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#f5f5f5" fill-opacity="1" d="M0,128L48,144C96,160,192,192,288,176C384,160,480,96,576,101.3C672,107,768,181,864,213.3C960,245,1056,235,1152,208C1248,181,1344,139,1392,117.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
+    <div data-scroll-section id="pertandingan" class="relative py-20">
+        <h1 data-scroll data-scroll-speed="-1" class="text-5xl text-font text-center mb-16 splitText text-font-2">Pertandingan</h1>
         <div class="relative max-w-7xl mx-auto lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-            <div class="absolute -top-8 right-[24rem] w-[22rem] h-[22rem] rounded-full bg-cyan-100 mix-blend-multiply filter blur-2xl"></div>
-            <div class="absolute -top-8 left-[24rem] w-[22rem] h-[22rem] rounded-full bg-purple-100 mix-blend-multiply filter blur-2xl"></div>
+            <div data-scroll data-scroll-direction="horizontal" data-scroll-speed="3" class="absolute -top-8 right-[24rem] w-[22rem] h-[22rem] rounded-full bg-cyan-100 mix-blend-multiply filter blur-2xl"></div>
+            <div data-scroll data-scroll-direction="horizontal" data-scroll-speed="-3" class="absolute -top-8 left-[24rem] w-[22rem] h-[22rem] rounded-full bg-purple-100 mix-blend-multiply filter blur-2xl"></div>
             @foreach ($competitions as $competition)
                 <a href="/competitions/{{ $competition->id }}"
                     class="card shadow-xl hover:scale-105 lg:card-side bg-white text-primary-content transform transition competition" onmouseenter="handleHover(event)" onmouseleave="handleHoverOut(event)">
@@ -51,13 +33,14 @@
         </div>
 
         <div class="flex py-2 justify-center">
-            <a href="/competitions" class="link mt-14 z-10 font-bold underline decoration-[3px] decoration-purple-500 hover:decoration-purple-700 text-2xl">Pertandingan Lain &#8594;</a>
+            <a data-scroll data-scroll-speed="1" href="/competitions" class="link mt-14 z-10 font-bold underline decoration-[3px] decoration-purple-500 hover:decoration-purple-700 text-2xl">Pertandingan Lain &#8594;</a>
         </div>
         <div class="py-20"></div>
     </div>
     </div>
     </div>
     <script>
+
         gsap.from(".primary-title",{
             delay: .8,
             duration: .95,
