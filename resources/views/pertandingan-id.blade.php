@@ -251,9 +251,9 @@
                                                                     </div>
                                                                 </th>
                                                             @endif
-                                                            <td>{{ $participantMark->peserta->name }}</td>
-                                                            <td>
-                                                                <div class="flex">
+                                                            <td class="w-10">{{ $participantMark->peserta->name }}</td>
+                                                            <td class="relative">
+                                                                <div class="">
                                                                     <div class="flex @if ($participantMark->marks == 0) hidden @endif">
                                                                         <div
                                                                             class="border border-gray-400 rounded-box px-1 mx-1 ">
@@ -284,9 +284,9 @@
                                                                             {{ number_format((float) $participantMark->judge_7, 1) }}
                                                                         </div>
                                                                     </div>
-                                                                    <div class="">
+                                                                    <div class="mt-2">
                                                                         <div
-                                                                            class="flex mx-3 items-center @if ($participantMark->marks == 0) hidden @endif">
+                                                                            class="flex items-center @if ($participantMark->marks == 0) hidden @endif">
                                                                             <div class="text-2xs mx-1">
                                                                                 KESUKARAN
                                                                             </div>

@@ -82,8 +82,8 @@
                                         <th>{{$key + 1}}</th> 
                                         <td>{{$participantMark -> peserta -> name . " / " . $participantMark -> peserta -> secondName}} </td> 
                                         <td>{{$participantMark -> peserta -> school}}</td> 
-                                        <td>{{$participantMark -> marks}}</td>
-                                        <td>{{$participantMark -> total_marks}}</td>
+                                        <td>{{number_format((float)$participantMark -> marks, 2, '.', '')}}</td>
+                                        <td>{{number_format((float)$participantMark -> total_marks, 2, '.', '')}}</td>
                                         @cannot("admin")
                                         <td>
                                             @if ($participantMark -> marks == 0)
@@ -240,8 +240,8 @@
                                         <th>{{$key + 1}}</th> 
                                         <td>{{$participantMark -> peserta -> name}}</td> 
                                         <td>{{$participantMark -> peserta -> school}}</td> 
-                                        <td>{{$participantMark -> marks}}</td>
-                                        <td>{{$participantMark -> total_marks}}</td>
+                                        <td>{{number_format((float)$participantMark -> marks, 2, '.', '')}}</td>
+                                        <td>{{number_format((float)$participantMark -> total_marks, 2, '.', '')}}</td>
                                         @cannot("admin")
                                         <td>
                                             @if ($participantMark -> marks == 0)
