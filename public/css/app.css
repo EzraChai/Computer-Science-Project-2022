@@ -2628,6 +2628,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   left: 16rem;
 }.top-4{
   top: 1rem;
+}.right-\[-30px\]{
+  right: -30px;
+}.top-1\/4{
+  top: 25%;
 }.-bottom-8{
   bottom: -2rem;
 }.z-0{
@@ -2728,6 +2732,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-left: auto;
 }.mb-12{
   margin-bottom: 3rem;
+}.mt-12{
+  margin-top: 3rem;
+}.mt-20{
+  margin-top: 5rem;
+}.mt-52{
+  margin-top: 13rem;
 }.block{
   display: block;
 }.inline-block{

@@ -35,7 +35,8 @@
     <script>
            const scroll = new LocomotiveScroll({
          el: document.querySelector('[data-scroll-container]'),
-    smooth: true
+        smooth: true,
+        firefoxMultiplier: 75,
 });
     </script>
 </html>

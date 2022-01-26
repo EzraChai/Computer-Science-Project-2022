@@ -239,12 +239,12 @@
                                                                 $participantMark -> total_marks != 0)
                                                                 <th><img class="w-6 h-6"
                                                                         src="https://cdn-icons-png.flaticon.com/512/2583/2583319.png"
-                                                                        alt="Gold Medal"></th>
+                                                                        alt="Silver Medal"></th>
                                                             @elseif($key + 1 == 3 && $key2 + 1 == 5 &&
                                                                 $participantMark -> total_marks != 0)
                                                                 <th><img class="w-6 h-6"
                                                                         src="https://cdn-icons-png.flaticon.com/512/2583/2583434.png"
-                                                                        alt="Gold Medal"></th>
+                                                                        alt="Bronze Medal"></th>
                                                             @else
                                                                 <th>
                                                                     <div class="">{{ $key + 1 }}
