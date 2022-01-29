@@ -1,24 +1,24 @@
 <x-jet-action-section>
     <x-slot name="title">
-        {{ __('Two Factor Authentication') }}
+        {{ __('Pengesahan Dua Faktor') }}
     </x-slot>
 
     <x-slot name="description">
-        {{ __('Add additional security to your account using two factor authentication.') }}
+        {{ __('Jaminkan keselamatan akaun anda apabila menggunakan pengesahan dua faktor.') }}
     </x-slot>
 
     <x-slot name="content">
         <h3 class="text-lg font-medium text-gray-900">
             @if ($this->enabled)
-                {{ __('You have enabled two factor authentication.') }}
+                {{ __('Anda telah mendayakan pengesahan dua faktor.') }}
             @else
-                {{ __('You have not enabled two factor authentication.') }}
+                {{ __('Anda tidak mendayakan pengesahan dua faktor.') }}
             @endif
         </h3>
 
         <div class="mt-3 max-w-xl text-sm text-gray-600">
             <p>
-                {{ __('When two factor authentication is enabled, you will be prompted for a secure, random token during authentication. You may retrieve this token from your phone\'s Google Authenticator application.') }}
+                {{ __('Apabila dua pengesahan faktor didayakan, anda akan digesa untuk token rawak yang selamat semasa pengesahan. Anda boleh mendapatkan semula token ini daripada aplikasi Pengesah Google telefon anda.') }}
             </p>
         </div>
 
@@ -26,7 +26,7 @@
             @if ($showingQrCode)
                 <div class="mt-4 max-w-xl text-sm text-gray-600">
                     <p class="font-semibold">
-                        {{ __('Two factor authentication is now enabled. Scan the following QR code using your phone\'s authenticator application.') }}
+                        {{ __('Pengesahan dua faktor kini didayakan. Imbas kod QR berikut menggunakan aplikasi pengesah telefon anda.') }}
                     </p>
                 </div>
 
@@ -38,7 +38,7 @@
             @if ($showingRecoveryCodes)
                 <div class="mt-4 max-w-xl text-sm text-gray-600">
                     <p class="font-semibold">
-                        {{ __('Store these recovery codes in a secure password manager. They can be used to recover access to your account if your two factor authentication device is lost.') }}
+                        {{ __('Simpan kod pemulihan ini dalam pengurus kata laluan yang selamat. Ia boleh digunakan untuk memulihkan akses kepada akaun anda jika peranti pengesahan dua faktor anda hilang.') }}
                     </p>
                 </div>
 
@@ -54,27 +54,27 @@
             @if (! $this->enabled)
                 <x-jet-confirms-password wire:then="enableTwoFactorAuthentication">
                     <x-jet-button type="button" wire:loading.attr="disabled">
-                        {{ __('Enable') }}
+                        {{ __('Mengaktifkan') }}
                     </x-jet-button>
                 </x-jet-confirms-password>
             @else
                 @if ($showingRecoveryCodes)
                     <x-jet-confirms-password wire:then="regenerateRecoveryCodes">
                         <x-jet-secondary-button class="mr-3">
-                            {{ __('Regenerate Recovery Codes') }}
+                            {{ __('Menjana Semula Kod Pemulihan') }}
                         </x-jet-secondary-button>
                     </x-jet-confirms-password>
                 @else
                     <x-jet-confirms-password wire:then="showRecoveryCodes">
                         <x-jet-secondary-button class="mr-3">
-                            {{ __('Show Recovery Codes') }}
+                            {{ __('Tunjukkan Kod Pemulihan') }}
                         </x-jet-secondary-button>
                     </x-jet-confirms-password>
                 @endif
 
                 <x-jet-confirms-password wire:then="disableTwoFactorAuthentication">
                     <x-jet-danger-button wire:loading.attr="disabled">
-                        {{ __('Disable') }}
+                        {{ __('Menyahdayakan') }}
                     </x-jet-danger-button>
                 </x-jet-confirms-password>
             @endif

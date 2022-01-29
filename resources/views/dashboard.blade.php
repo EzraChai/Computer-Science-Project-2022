@@ -98,14 +98,13 @@
                                             </a>
                                             <div id="delete{{ $competition->id }}" class="modal">
                                                 <div class="modal-box whitespace-normal text-gray-800 text-lg ">
-                                                    <p class="">"Pertandingan yang bertajuk "<span
+                                                    <p class=""><span
                                                             class="bg-yellow-100 rounded-md px-1">{{ $competition->name }}
-                                                        </span> akan dipadamkan.</p>
-                                                    <p>Sila berfikir dengan teliti sebelum memadamnya.</p>
+                                                        </span> <br/> akan dipadamkan.</p>
                                                     <div class="modal-action">
                                                         <button type="submit"
                                                             class="btn bg-red-500 border-0 hover:bg-red-700 ">Padam</button>
-                                                        <a href="#close" class="btn">Tutup</a>
+                                                        <a href="#close" class="btn">Batal</a>
                                                     </div>
                                                 </div>
                                             </div>

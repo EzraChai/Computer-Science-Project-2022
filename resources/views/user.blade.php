@@ -77,12 +77,12 @@
                                             </a>
                                             <div id="delete{{ $user->id }}" class="modal">
                                                 <div class="modal-box whitespace-normal text-gray-800 text-lg ">
-                                                    <p>{{ "Pengguna yang bernama \"" . $user->name . "\" akan dipadamkan." }}
+                                                    <p>{{ "Pengguna \"" . $user->name . "\" akan dipadamkan." }}
                                                     </p>
                                                     <div class="modal-action">
                                                         <button type="submit" for="my-modal-2"
                                                             class="btn bg-red-500 border-0 hover:bg-red-700 ">Padam</button>
-                                                        <a href="#close" class="btn">Tutup</a>
+                                                        <a href="#close" class="btn">Batal</a>
                                                     </div>
                                                 </div>
                                             </div>
