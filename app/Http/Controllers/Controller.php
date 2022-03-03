@@ -13,6 +13,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Fortify\Rules\Password;
+use Iman\Streamer\VideoStreamer;
 
 class Controller extends BaseController
 {
@@ -100,7 +101,13 @@ class Controller extends BaseController
         $competitions = Cache::remember('four_competitions', 30, function () {
             return Pertandingan::all()->sortByDesc("created_at")->take(4);
         });
-
         return view('welcome', compact('competitions'));
+    }
+
+    public function homeVideo()
+    {
+        $path = public_path('Monodivingolympicintro(1).webm');
+    
+        VideoStreamer::streamFile($path);
     }
 }

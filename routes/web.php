@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [Controller::class, 'home']);
 
+Route::get("/stream/video",[Controller::class, 'homeVideo']);
+
 Route::get('/competitions', [PertandinganController::class, 'competition']);
 
 Route::get("/competitions/query", [SearchController::class, 'query']);

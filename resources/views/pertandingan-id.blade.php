@@ -7,7 +7,7 @@
                     <div class="card transform hover:-translate-y-2 transition shadow-lg side col-span-2  bg-base-100">
                         <div class="flex-row items-center space-x-4 card-body">
                             <div class="flex-1">
-                                <p class="text-base-content text-opacity-60">Tajuk Pertandingan</p>
+                                <p class="text-base-content text-opacity-60">Pertandingan</p>
                                 <h1 class="card-title text-YInMnBlue font-extrabold text-4xl">
                                     {{ $competition->name }}
                                 </h1>
@@ -17,7 +17,7 @@
                     <div class="card transform hover:-translate-y-2 transition shadow-lg side col-span-1 bg-base-100">
                         <div class="flex-row items-center space-x-4 card-body">
                             <div class="flex-1">
-                                <p class="text-base-content text-opacity-60">Tarikh Pertandingan</p>
+                                <p class="text-base-content text-opacity-60">Tarikh</p>
                                 <h1 class="card-title text-4xl font-extrabold text-YInMnBlue">
                                     {{ date('d/m/Y', strtotime($competition->date)) }}
                                 </h1>
@@ -27,7 +27,7 @@
                     <div class="card transform hover:-translate-y-2 transition shadow-lg side col-span-2  bg-base-100">
                         <div class="flex-row items-center space-x-4 card-body">
                             <div class="flex-1">
-                                <p class="text-base-content text-opacity-60">Tempat Pertandingan</p>
+                                <p class="text-base-content text-opacity-60">Tempat</p>
                                 <h1 class="card-title text-4xl font-extrabold text-YInMnBlue">
                                     {{ $competition->avenue }}
                                 </h1>

@@ -1,16 +1,19 @@
 <x-public-page>
     <div data-scroll-section class="main-page relative bg-base-100 min-h-[90vh] w-full flex items-center justify-center">
-            <video muted loop autoplay preload="auto" class="w-full h-full absolute object-cover bg-zinc-800">
-                <source src="/Monodivingolympicintro(1).webm" type="video/webm">
+        <div class="w-full h-full blur-md overflow-hidden absolute scale-105">
+            <video muted loop autoplay preload="auto" width="100%" class="h-full object-cover bg-zinc-800">
+                <source src="/stream/video" type="video/webm">
                     Your Browser does not support the video.
             </video>
+        </div>
             <div data-scroll data-scroll-speed="2" class="absolute z-30 text-white mb-24">
-                <div class="bg-zinc-100 w-[0.3rem] h-[7.5rem] absolute left-[-28px] rounded-xs"></div>
+                <div class="bg-zinc-100 w-[0.3rem] h-[12.5rem] absolute left-[-28px] rounded-xs"></div>
                 <div class="w-full h-full overflow-hidden">
-                    <h1 data-scroll class="text-8xl primary-title title-font font-bold">Pertandingan <span class="text-cyan-500">Terjun</span></h1>
+                    <h1 data-scroll class="text-8xl primary-title title-font text-white font-extrabold">
+                     <span class="text-[8rem]">P</span>ertandingan <span class="bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg"><span class="text-[8rem]">T</span>erjun</span></h1>
                 </div>
                 <div class="w-full h-full overflow-hidden">
-                    <h4 data-scroll class="text-xl text-zinc-100 secondary-title title-font font-bold ml-2">Cepat & Tepat.</h4>
+                    <h4 data-scroll class="text-2xl mt-2 text-zinc-100 secondary-title title-font font-bold ml-2">Info Pertandingan yang Terkini <span class=" text-yellow-400">&</span> Tepat.</h4>
                 </div>
             </div>
     </div>
@@ -42,12 +45,12 @@
         gsap.from(".primary-title",{
             delay: .8,
             duration: .95,
-            x: -950,
+            x: -1050,
             ease: "power3.Out"
         })
         gsap.from(".secondary-title", {
             duration: 1,
-            x: -200,
+            x: -500,
             ease: "power3.inOut"
         },"second")
 
