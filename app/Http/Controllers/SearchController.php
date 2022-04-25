@@ -51,7 +51,6 @@ class SearchController extends Controller
             // Remove same element from an array
             $arr_id = array_unique($arr_id);
 
-
             $competitions = null;
             $counter = 0;
 

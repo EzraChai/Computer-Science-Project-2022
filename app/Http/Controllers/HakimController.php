@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Validator;
 
 class HakimController extends Controller
 {
-    //
     public function addMarks(Request $request, $competition_id)
     {
         if ($request->comp_type == "Seirama") {

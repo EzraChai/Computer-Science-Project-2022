@@ -168,9 +168,7 @@ class PesertaController extends Controller
     {
         if (Auth()->user()->is_admin) {
             MarkahPeserta::where("peserta_id", $id)->delete();
-
             Peserta::findOrFail($id)->delete();
-
             return redirect("/dashboard/competition/" . $competition_id . "/participant");
         }
         return redirect("/dashboard/competition/" . $competition_id);

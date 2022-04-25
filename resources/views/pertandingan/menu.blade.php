@@ -11,7 +11,7 @@
                     <form action="/dashboard/competition" method="POST">
                         @csrf
                         <div class="p-4 bg-white shadow-lg rounded-md text-left mx-auto max-w-2xl">
-                <h2 class="font-semibold text-xl text-gray-800 mb-6 leading-tight">Menganjurkan Pertandingan</h2>
+                    <h2 class="font-semibold text-xl text-gray-800 mb-6 leading-tight">Menganjurkan Pertandingan</h2>
 
                         <label class="block">
                             <span class="text-gray-700">Tajuk Pertandingan</span>
@@ -72,9 +72,9 @@
                                     btn
                                 "
                                 type="submit"
-                                >
-                                Anjur
-                                </button>
+                            >
+                            Anjur
+                            </button>
                         </div>
                     </form>
             </div>

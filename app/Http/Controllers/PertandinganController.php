@@ -146,7 +146,6 @@ class PertandinganController extends Controller
         if (Auth()->user()->is_admin) {
             $competition = Pertandingan::findOrFail($id);
             $pusinganId = $competition->pusingan;
-            // dd($pusinganId);
 
             for ($i = 0; $i < $pusinganId->count(); $i++) {
                 MarkahPeserta::where("pusingan_id", $pusinganId[$i] -> id)->delete();
@@ -155,6 +154,7 @@ class PertandinganController extends Controller
             for ($i=0; $i < $pusinganId->count(); $i++) { 
                 Pusingan::where("id", $pusinganId[$i] -> id) -> delete();
             }
+            
             Peserta::where("pertandingan_id", $id)->delete();
             $competition->delete();
         }

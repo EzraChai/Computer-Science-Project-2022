@@ -7,7 +7,6 @@
 
     <div data-theme="fantasy" class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-
             <div class="w-full rounded-lg mb-5 shadow-lg border-0 stats">
                 <div class="stat place-items-center place-content-center">
                     <div class="stat-title">Jumlah Bilangan Pertandingan</div>
@@ -22,7 +21,6 @@
                     <div class="stat-value text-CandyPink text-font-2">{{ $userCount }}</div>
                 </div>
             </div>
-
 
             <div class="bg-white mt-2 p-6 overflow-hidden shadow-xl sm:rounded-lg">
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">Pertandingan</h2>
@@ -64,7 +62,6 @@
                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                     <div class="text-sm leading-5 text-gray-500">{{ $competition->avenue }}</div>
                                 </td>
-
                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                     <div class="text-sm leading-5 text-gray-500">{{ $competition->date }}</div>
                                 </td>
@@ -72,7 +69,6 @@
                                     <div class="text-sm leading-5 text-gray-500">{{ $competition->type }}</div>
                                 </td>
                                 @can('admin')
-
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                         <a href="/dashboard/competition/{{ $competition->id }}/edit"
                                             class="text-sm leading-5 text-gray-500">
@@ -98,23 +94,25 @@
                                             </a>
                                             <div id="delete{{ $competition->id }}" class="modal">
                                                 <div class="modal-box whitespace-normal text-gray-800 text-lg ">
-                                                    <p class=""><span
+                                                    <p class="">
+                                                        <span
                                                             class="bg-yellow-100 rounded-md px-1">{{ $competition->name }}
-                                                        </span> <br/> akan dipadamkan.</p>
+                                                        </span><br/>
+                                                         akan dipadamkan.
+                                                    </p>
                                                     <div class="modal-action">
-                                                        <button type="submit"
-                                                            class="btn bg-red-500 border-0 hover:bg-red-700 ">Padam</button>
+                                                        <button type="submit" class="btn bg-red-500 border-0 hover:bg-red-700 ">Padam</button>
                                                         <a href="#close" class="btn">Batal</a>
                                                     </div>
                                                 </div>
                                             </div>
-                </div>
-                </form>
-                </td>
-            @endcan
-            </tr>
-            @endforeach
-            </tbody>
+                                        </div>
+                                    </form>
+                                </td>
+                            @endcan
+                        </tr>
+                    @endforeach
+                </tbody>
             </table>
             @can('admin')
                 <div class="flex w-full justify-end mt-4">
@@ -123,9 +121,8 @@
                         Pertandingan</a>
                 </div>
             @endcan
+                </div>
+            </div>
         </div>
-        <MySimpleComponent />
-    </div>
-    </div>
     </div>
 </x-app-layout>

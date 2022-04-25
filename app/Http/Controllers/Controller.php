@@ -107,7 +107,6 @@ class Controller extends BaseController
     public function homeVideo()
     {
         $path = public_path('Monodivingolympicintro(1).webm');
-    
         VideoStreamer::streamFile($path);
     }
 }
