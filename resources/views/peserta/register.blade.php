@@ -3,7 +3,6 @@
         <x-slot name="logo">
             <x-jet-authentication-card-logo />
         </x-slot>
-
         <x-jet-validation-errors class="mb-4" />
 
         <form method="POST" action="/dashboard/competition/{{$competition_id}}/participant">
@@ -22,7 +21,7 @@
                 </div>
 
                 <div class="mt-4">
-                    <x-jet-label for="name2" value="{{ __('Nama Peserta 1') }}" />
+                    <x-jet-label for="name2" value="{{ __('Nama Peserta 2') }}" />
                     <x-jet-input id="name2" class="block mt-1 w-full placeholder-gray-400" type="text" name="name2" placeholder="Ah Beng" :value="old('name2')" required autofocus/>
                 </div>
 

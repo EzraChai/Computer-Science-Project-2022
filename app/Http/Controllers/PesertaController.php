@@ -55,8 +55,8 @@ class PesertaController extends Controller
                 $validated = $request->validate([
                     'name1' => ['required', 'string', 'max:255'],
                     'name2' => ['required', 'string', 'max:255'],
-                    'identity1' => ['required', 'regex:/(([[0-9]{2})(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01]))([0-9]{2})([0-9]{4})/'],
-                    'identity2' => ['required', 'regex:/(([[0-9]{2})(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01]))([0-9]{2})([0-9]{4})/'],
+                    'identity1' => ['required', 'max:255'],
+                    'identity2' => ['required', 'max:255'],
                     'school' => ['required', 'string', 'min:4', 'max:255'],
                 ]);
                 $peserta = Peserta::create([
@@ -70,7 +70,7 @@ class PesertaController extends Controller
             } else {
                 $validated = $request->validate([
                     'name' => ['required', 'string', 'max:255'],
-                    'identity' => ['required', 'regex:/(([[0-9]{2})(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01]))([0-9]{2})([0-9]{4})/'],
+                    'identity' => ['required', 'max:255'],
                     'school' => ['required', 'string', 'min:4', 'max:255'],
                 ]);
                 $peserta = Peserta::create([
