@@ -41,7 +41,6 @@
         <div class="py-20"></div>
     </div>
     <script>
-
         gsap.from(".primary-title",{
             delay: .8,
             duration: .95,
@@ -57,7 +56,6 @@
         function handleHover(e){
             gsap.to(e.target.children[0].children[2],{
                 y: -70,
-                delay: .15,
                 duration: .6,
                 ease: "power3.out"
             })

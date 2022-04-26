@@ -7,7 +7,7 @@
                 <div class=" mb-24 form-control">
                     <div class="flex space-x-2">
                         <input type="text" name="search" placeholder="Tajuk Pertandingan / Nama Peserta"
-                            class="w-full input input-neutral-focus input-bordered" required value="{{ $text ?? '' }}">
+                            class="w-full input input-neutral-focus input-bordered" required value="{{ $text ?? '' }}"/>
                         <button class="btn  bg-YInMnBlue text-white">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 class="inline-block w-6 h-6 stroke-current">
@@ -31,9 +31,9 @@
         <div class="max-w-[100rem] mx-auto lg:px-8 columns-1 lg:columns-2 gap-6">
 
             @foreach ($competitions as $competition)
-            <div data-scroll-section>
+            <div data-scroll-section class="w-full mb-6">
                 <a href="/competitions/{{ $competition->id }}"
-                    class="card shadow-2xl lg:card-side bg-white text-primary-content transform transition hover:scale-105" onmouseenter="handleHover(event)" onmouseleave="handleHoverOut(event)" >
+                    class="card shadow-2xl lg:card-side bg-white text-primary-content transform transition" onmouseenter="handleHover(event)" onmouseleave="handleHoverOut(event)" >
                     <div  class="card-body">
                         <h1 class=" text-2xl text-font-2">{{ $competition->name }}</h1>
                         <p class="text-base text-gray-500">{{ $competition->avenue }}</p>
@@ -63,7 +63,6 @@
 
              gsap.to(e.target.children[0].children[e.target.children[0].childElementCount - 1],{
                 y: -32,
-                delay: .15,
                 duration: .6,
                 ease: "power3.out"
             })
@@ -84,9 +83,7 @@
                 duration: .5,
                 ease: "power3.out"
             })
-
         scroll.update()
-
         }
 
         function handleHoverOut(e){
@@ -110,11 +107,7 @@
                 duration: .6,
                 ease: "power3.in"
             })
-
             scroll.update()
-
             }
-
-            
     </script>
 </x-public-page>
