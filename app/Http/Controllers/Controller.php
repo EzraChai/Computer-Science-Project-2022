@@ -19,6 +19,9 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    /**
+     * Show Admin Page
+     */
     public function index()
     {
         $user = Auth()->user();
@@ -37,6 +40,9 @@ class Controller extends BaseController
         return view('dashboard', compact('competitions', 'participantCount', 'userCount'));
     }
 
+    /**
+     * Shows Users
+     */
     public function user()
     {
         if (Auth()->user()->is_admin) {
@@ -46,6 +52,9 @@ class Controller extends BaseController
         return view('dashboard');
     }
 
+    /**
+     * Show User Registration Page
+     */
     public function showUserRegister()
     {
         if (Auth()->user()->is_admin) {
@@ -54,6 +63,9 @@ class Controller extends BaseController
         return view('dashboard');
     }
 
+    /**
+     * Validate and Create User Registration
+     */
     public function userRegister(Request $request)
     {
         if (Auth()->user()->is_admin) {
@@ -74,6 +86,9 @@ class Controller extends BaseController
         return redirect('/user');
     }
 
+    /**
+     * Delete A User
+     */
     public function drop($id)
     {
         $user = User::findOrFail($id);
@@ -96,6 +111,9 @@ class Controller extends BaseController
         return redirect('/user');
     }
 
+    /**
+     * Show home page
+     */
     public function home()
     {
         $competitions = Cache::remember('four_competitions', 30, function () {
@@ -104,6 +122,9 @@ class Controller extends BaseController
         return view('welcome', compact('competitions'));
     }
 
+    /**
+     * Video stream
+     */
     public function homeVideo()
     {
         $path = public_path('Monodivingolympicintro(1).webm');
