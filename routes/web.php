@@ -34,6 +34,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('/user', [Controller::class, 'user'])->name('user');
 
+    Route::post('/user/search',[Controller::class,'userQuery']);
+
     Route::delete('/user/{id}', [Controller::class, 'drop']);
 
     Route::post('/user/{id}/admin', [Controller::class, 'changeStatus']);

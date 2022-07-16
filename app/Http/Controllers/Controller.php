@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Fortify\Rules\Password;
 use Iman\Streamer\VideoStreamer;
+use Symfony\Component\Console\Input\Input;
 
 class Controller extends BaseController
 {
@@ -84,6 +85,19 @@ class Controller extends BaseController
             ]);
         }
         return redirect('/user');
+    }
+
+    /**
+     * Query User
+     */
+    public function userQuery(Request $request)
+    {
+        if (Auth()->user()->is_admin) {
+            $name = $request->input('name');
+            $users = User::where('name', "like",'%'.$name.'%')->get();
+            return view('user', compact('users'));
+        }
+        return view('dashboard');
     }
 
     /**
