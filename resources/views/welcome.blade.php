@@ -1,6 +1,6 @@
 <x-public-page>
-    <div data-scroll-section class="main-page relative bg-base-100 min-h-[90vh] w-full flex items-center justify-center">
-        <div class="w-full h-full blur-md overflow-hidden absolute scale-105">
+    <div data-scroll-section class="main-page overflow-hidden relative bg-base-100 min-h-[90vh] w-full flex items-center justify-center">
+        <div class="w-full h-full absolute scale-105">
             <video muted loop autoplay preload="auto" width="100%" class="h-full object-cover bg-zinc-800">
                 <source src="/stream/video" type="video/webm">
                     Your Browser does not support the video.
