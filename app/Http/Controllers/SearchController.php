@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class SearchController extends Controller
 {
+    //  Bahagian untuk mencari pertandingan mengikut nama pertandingan atau nama peserta
     public function query(Request $request)
     {
         $competitions = null;

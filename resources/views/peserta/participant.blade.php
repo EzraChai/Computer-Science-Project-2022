@@ -94,22 +94,22 @@
                                                 <form action='{{"/dashboard/competition/$competition_id/participant/$participant->id"}}' method="POST">
                                                     @method('DELETE')
                                                     @csrf
-                                                    <label for="my-modal-2" type="button" class="modal-button">
+                                                        <a href="#delete{{ $participant->id }}" for="my-modal-2">
                                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-400 cursor-pointer"
-                                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                                             </svg>
-                                                        </label>
-                                                        <input type="checkbox" id="my-modal-2" class="modal-toggle"> 
-                                                        <div class="modal">
+                                                    </a> 
+                                                        <div id="delete{{$participant->id}}" class="modal">
                                                             <div class="modal-box whitespace-normal text-gray-800 text-lg ">
-                                                                    <p>{{"Peserta yang bernama \"". $participant->name. "\" akan dipadamkan."}}</p>
+                                                                    <p>{{"Peserta yang bernama \"". $participant->name . "\" akan dipadamkan."}}</p>
                                                                     <p>Sila berfikir dengan teliti sebelum memadamkannya.</p>
                                                                     <div class="modal-action">
-                                                                    <button type="submit" for="my-modal-2" class="btn bg-red-500 border-0 hover:bg-red-700 ">Padam</button> 
-                                                                    <label for="my-modal-2" class="btn">Tutup</label>
-                                                                </div>
+                                                                        <button type="submit"
+                                                                            class="btn bg-red-500 border-0 hover:bg-red-700 ">Padam</button>
+                                                                        <a href="#close" class="btn">Batal</a>
+                                                                    </div>
                                                             </div>
                                                         </div>
                                                 </form>

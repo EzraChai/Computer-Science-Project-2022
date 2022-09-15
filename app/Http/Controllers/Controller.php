@@ -10,11 +10,11 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Fortify\Rules\Password;
 use Iman\Streamer\VideoStreamer;
-use Symfony\Component\Console\Input\Input;
 
 class Controller extends BaseController
 {
@@ -88,7 +88,7 @@ class Controller extends BaseController
     }
 
     /**
-     * Query User
+     * Bahagian untuk mencari pengguna
      */
     public function userQuery(Request $request)
     {

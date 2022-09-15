@@ -93,11 +93,12 @@
                         </tbody>
                     </table>
                     <div class="flex w-full justify-between mt-4">
-                            <form method="POST"  class=" form-group" action='{{ "/user/search" }}'>
-                                @csrf
-                                <input name="name" class="input input-bordered text-gray-900" type="text" placeholder="Cari Pengguna">
-                                <button class="btn " type="submit">Cari</button>
-                            </form>
+                        <form method="POST" class=" form-group" action='{{ '/user/search' }}'>
+                            @csrf
+                            <input name="name" class="input input-bordered text-gray-900" type="text"
+                                placeholder="Cari Pengguna">
+                            <button class="btn " type="submit">Cari</button>
+                        </form>
                         <a href="/user/create"
                             class="hover:scale-105 transform text-gray-800 transition  font-semibold py-2 px-4 border border-gray-400 rounded shadow">Pengguna
                             Baharu</a>

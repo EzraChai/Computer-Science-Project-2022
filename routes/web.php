@@ -5,6 +5,7 @@ use App\Http\Controllers\HakimController;
 use App\Http\Controllers\PertandinganController;
 use App\Http\Controllers\PesertaController;
 use App\Http\Controllers\SearchController;
+use App\Models\Peserta;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,11 +43,16 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('/user/create', [Controller::class, 'showUserRegister']);
 
+
     Route::get('/dashboard/competition', [PertandinganController::class, 'index']);
 
     Route::post('/user/register', [Controller::class, 'userRegister']);
 
     Route::resource('/dashboard/competition', PertandinganController::class);
+
+    Route::get('/dashboard/competition/{competition_id}/participant/import', [PesertaController::class, 'showParticipantImport']);
+
+    Route::post('/dashboard/competition/{competition_id}/participant/import', [PesertaController::class, 'storeParticipantImport']);
 
     Route::resource('/dashboard/competition/{competition_id}/participant', PesertaController::class)->except('index');
 

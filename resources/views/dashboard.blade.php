@@ -97,22 +97,23 @@
                                                     <p class="">
                                                         <span
                                                             class="bg-yellow-100 rounded-md px-1">{{ $competition->name }}
-                                                        </span><br/>
-                                                         akan dipadamkan.
+                                                        </span><br />
+                                                        akan dipadamkan.
                                                     </p>
                                                     <div class="modal-action">
-                                                        <button type="submit" class="btn bg-red-500 border-0 hover:bg-red-700 ">Padam</button>
+                                                        <button type="submit"
+                                                            class="btn bg-red-500 border-0 hover:bg-red-700 ">Padam</button>
                                                         <a href="#close" class="btn">Batal</a>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </form>
-                                </td>
-                            @endcan
-                        </tr>
-                    @endforeach
-                </tbody>
+                </div>
+                </form>
+                </td>
+            @endcan
+            </tr>
+            @endforeach
+            </tbody>
             </table>
             @can('admin')
                 <div class="flex w-full justify-end mt-4">
@@ -121,8 +122,8 @@
                         Pertandingan</a>
                 </div>
             @endcan
-                </div>
-            </div>
         </div>
+    </div>
+    </div>
     </div>
 </x-app-layout>

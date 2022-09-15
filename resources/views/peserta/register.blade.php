@@ -45,7 +45,10 @@
                 <x-jet-input id="school" class="block mt-1 w-full placeholder-gray-400" type="text" name="school" placeholder="SMK Tinggi Port Dickson" :value="old('school')" required />
             </div>
 
-            <div class="flex items-center justify-end mt-4">
+            <div class="flex items-center justify-between mt-4">
+                 <a href="/dashboard/competition/{{$competition_id}}/participant/import" class="btn">
+                    {{ __('Import Data') }}
+                </a>
                 <x-jet-button class="btn ml-4">
                     {{ __('Daftar') }}
                 </x-jet-button>

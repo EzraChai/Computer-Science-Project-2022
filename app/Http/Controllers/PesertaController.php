@@ -7,6 +7,7 @@ use App\Models\Pertandingan;
 use App\Models\Peserta;
 use App\Models\Pusingan;
 use Illuminate\Http\Request;
+use Illuminate\Http\Testing\MimeType;
 
 class PesertaController extends Controller
 {
@@ -125,8 +126,8 @@ class PesertaController extends Controller
                 $validated = $request->validate([
                     'name1' => ['required', 'string', 'max:255'],
                     'name2' => ['required', 'string', 'max:255'],
-                    'identity1' => ['required', 'regex:/(([[0-9]{2})(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01]))([0-9]{2})([0-9]{4})/'],
-                    'identity2' => ['required', 'regex:/(([[0-9]{2})(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01]))([0-9]{2})([0-9]{4})/'],
+                    'identity1' => ['required', 'string'],
+                    'identity2' => ['required', 'string'],
                     'school' => ['required', 'string', 'min:4', 'max:255'],
                 ]);
 
@@ -142,7 +143,7 @@ class PesertaController extends Controller
             } else {
                 $validated = $request->validate([
                     'name' => ['required', 'string', 'max:255'],
-                    'identity' => ['required', 'regex:/(([[0-9]{2})(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01]))([0-9]{2})([0-9]{4})/'],
+                    'identity' => ['required', 'string'],
                     'school' => ['required', 'string', 'min:4', 'max:255'],
                 ]);
 
@@ -173,4 +174,104 @@ class PesertaController extends Controller
         }
         return redirect("/dashboard/competition/" . $competition_id);
     }
+
+    /**
+     * Show participant import page
+     */
+    public function showParticipantImport($competition_id)
+    {
+        if (Auth()->user()->is_admin) {
+            $competition_type = Pertandingan::findOrFail($competition_id)->type;
+            return view("peserta.import", compact('competition_id', 'competition_type'));
+        }
+
+        return redirect('/dashboard/competition/' . $competition_id);
+    }
+
+    /**
+     * Import Participants from .csv file
+     */
+    public function storeParticipantImport(Request $request,$competition_id)
+    {
+        if (Auth()->user()->is_admin) {
+            $file = $request->file("uploaded_file");
+            if ($file){
+                $fileMimeType = MimeType::from($file->getClientOriginalName());
+                if($fileMimeType == "text/csv"){
+                    
+                    $filename = $file->getClientOriginalName();
+
+                    //Where uploaded file will be stored on the server 
+                    $location = 'uploads'; //Created an "uploads" folder for that
+                    // Upload file
+                    $file->move($location, $filename);
+                    // In case the uploaded file path is to be stored in the database 
+                    $filepath = public_path($location . "/" . $filename);
+                    // Reading file
+                    $file = fopen($filepath, "r");
+                    $importData_arr = array(); // Read through the file and store the contents as an array
+                    $i = 0;
+                    //Read the contents of the uploaded file 
+                    while (($filedata = fgetcsv($file, 1000, ",")) !== FALSE) {
+                        $num = count($filedata);
+                        // Skip first row (Remove below comment if you want to skip the first row)
+                        if ($i == 0) {
+                            $i++;
+                        continue;
+                        }
+                        for ($c = 0; $c < $num; $c++) {
+                            $importData_arr[$i][] = $filedata[$c];
+                        }
+                        $i++;
+                    }
+                    fclose($file); //Close after reading
+                }
+            }
+
+            if (Pertandingan::findOrFail($competition_id) ->type == "Seirama") {
+                foreach ($importData_arr as $importData){
+                    $peserta = Peserta::create([
+                        'identity' => $importData[0],
+                        'secondIdentity' => $importData[1],
+                        'name' => $importData[2],
+                        'secondName' => $importData[3],
+                        'school' => $importData[4],
+                        'pertandingan_id' => $competition_id,
+                    ]);
+
+                    $arrPusingan = Pusingan::where('pertandingan_id', $competition_id)->get();
+                    for ($i = 0; $i < 5; $i++) {
+                        MarkahPeserta::create([
+                            'peserta_id' => $peserta->id,
+                            'pusingan_id' => $arrPusingan[$i]->id,
+                            'marks' => 0,
+                            'total_marks' => 0,
+                        ]);
+                    }
+                }
+            } else {
+                foreach ($importData_arr as $importData){
+                    $peserta = Peserta::create([
+                        'identity' => $importData[0],
+                        'name' => $importData[2],
+                        'school' => $importData[4],
+                        'pertandingan_id' => $competition_id,
+                    ]);
+
+                    $arrPusingan = Pusingan::where('pertandingan_id', $competition_id)->get();
+                    for ($i = 0; $i < 5; $i++) {
+                        MarkahPeserta::create([
+                            'peserta_id' => $peserta->id,
+                            'pusingan_id' => $arrPusingan[$i]->id,
+                            'marks' => 0,
+                            'total_marks' => 0,
+                        ]);
+                    }
+                }
+            }
+        }
+        return redirect("/dashboard/competition/" . $competition_id . "/participant");
+    }
 }
+
+

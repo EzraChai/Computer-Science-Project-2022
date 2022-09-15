@@ -251,7 +251,8 @@
                                                                     </div>
                                                                 </th>
                                                             @endif
-                                                            <td class="w-10">{{ $participantMark->peserta->name }}</td>
+                                                            <td class="w-10">
+                                                                {{ $participantMark->peserta->name }}</td>
                                                             <td class="relative">
                                                                 <div class="">
                                                                     <div class="flex @if ($participantMark->marks == 0) hidden @endif">
