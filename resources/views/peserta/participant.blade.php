@@ -1,15 +1,22 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+    <x-slot name="header print:hidden">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight ">
             {{ __('Pengurusan Peserta') }}
         </h2>
     </x-slot>
-
-    <div class="py-12">
+   
+    <div class="py-12 print:py-2">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+             @if(session('status'))
+                <div class="toast ">
+                    <div class="alert alert-success">
+                        <div>
+                        <span>{{session('status')}}</span>
+                        </div>
+                    </div>
+            @endif
                 @can('admin')
-                <a href="/dashboard/competition/{{$competition_id}}" class="btn left-64 text-xl absolute">←</a>
-
+                <a href="/dashboard/competition/{{$competition_id}}" class="btn left-64 text-xl absolute print:hidden">←</a>
                 <div class="bg-white mt-4 p-6 overflow-hidden shadow-xl sm:rounded-lg">
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">Peserta</h2>
                 <table class="table min-w-full mt-4">
@@ -118,11 +125,13 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                                <div class="flex w-full justify-end mt-4">
+                                <div class="flex w-full justify-between mt-4">
+                                    <button onclick="window.print()" class="btn rounded">Cetak</button>
                                     <a href='{{"/dashboard/competition/$competition_id/participant/create"}}'' class="hover:scale-105 transform text-gray-800 transition  font-semibold py-2 px-4 border border-gray-400 rounded shadow">Mendaftar Peserta</a>
                                 </div>
                             @endcan
             </div>
         </div>
     </div>
+    
 </x-app-layout>

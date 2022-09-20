@@ -7,6 +7,13 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            @if (session('status'))
+            <div class="toast">
+                <div class="alert alert-success">
+                    {{session('status')}}
+                </div>
+            </div>
+            @endif
             @can('admin')
                 <div class="bg-white mt-2 p-6 overflow-hidden shadow-xl sm:rounded-lg">
                     <h2 class="font-semibold text-xl text-gray-800 leading-tight">Pengguna</h2>

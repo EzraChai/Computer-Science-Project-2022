@@ -34,11 +34,17 @@ class Controller extends BaseController
         $userCount = User::all()->count();
 
         if ($user->is_admin) {
-            $users = User::where('id', "!=", $user->id)->get();
+            $users = User::where("id", "!=", $user->id)->get();
             $competitions = Pertandingan::orderByDesc("created_at")->get();
-            return view('dashboard', compact('competitions', 'participantCount', 'userCount'));
+            return view(
+                "dashboard",
+                compact("competitions", "participantCount", "userCount")
+            );
         }
-        return view('dashboard', compact('competitions', 'participantCount', 'userCount'));
+        return view(
+            "dashboard",
+            compact("competitions", "participantCount", "userCount")
+        );
     }
 
     /**
@@ -47,10 +53,10 @@ class Controller extends BaseController
     public function user()
     {
         if (Auth()->user()->is_admin) {
-            $users = User::where('id', "!=", Auth()->user()->id)->get();
-            return view('user', compact('users'));
+            $users = User::where("id", "!=", Auth()->user()->id)->get();
+            return view("user", compact("users"));
         }
-        return view('dashboard');
+        return view("dashboard");
     }
 
     /**
@@ -59,9 +65,9 @@ class Controller extends BaseController
     public function showUserRegister()
     {
         if (Auth()->user()->is_admin) {
-            return view('user.register');
+            return view("user.register");
         }
-        return view('dashboard');
+        return view("dashboard");
     }
 
     /**
@@ -71,20 +77,37 @@ class Controller extends BaseController
     {
         if (Auth()->user()->is_admin) {
             $validated = $request->validate([
-                'name' => ['required', 'string', 'unique:users', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                'accountType' => 'required',
-                'password' => ['required', 'string', new Password, 'confirmed'],
+                "name" => ["required", "string", "unique:users", "max:255"],
+                "email" => [
+                    "required",
+                    "string",
+                    "email",
+                    "max:255",
+                    "unique:users",
+                ],
+                "accountType" => "required",
+                "password" => [
+                    "required",
+                    "string",
+                    new Password(),
+                    "confirmed",
+                ],
             ]);
 
             User::create([
-                'name' => $validated["name"],
-                'email' => $validated["email"],
-                'is_admin' => $validated["accountType"] == 'urusSetia',
-                'password' => Hash::make($validated['password']),
+                "name" => $validated["name"],
+                "email" => $validated["email"],
+                "is_admin" => $validated["accountType"] == "urusSetia",
+                "password" => Hash::make($validated["password"]),
             ]);
+            return redirect("/user")->with(
+                "status",
+                "Anda telah berjaya mendaftar \"" .
+                    $validated["name"] .
+                    " \" sebagai pengguna."
+            );
         }
-        return redirect('/user');
+        return redirect("/user");
     }
 
     /**
@@ -93,11 +116,11 @@ class Controller extends BaseController
     public function userQuery(Request $request)
     {
         if (Auth()->user()->is_admin) {
-            $name = $request->input('name');
-            $users = User::where('name', "like",'%'.$name.'%')->get();
-            return view('user', compact('users'));
+            $name = $request->input("name");
+            $users = User::where("name", "like", "%" . $name . "%")->get();
+            return view("user", compact("users"));
         }
-        return view('dashboard');
+        return view("dashboard");
     }
 
     /**
@@ -111,7 +134,7 @@ class Controller extends BaseController
             $user = User::find($user->id);
             $user->delete();
         }
-        return redirect('/user');
+        return redirect("/user");
     }
 
     public function changeStatus($id)
@@ -119,10 +142,10 @@ class Controller extends BaseController
         $user = User::findOrFail($id);
 
         if (Auth()->user()->is_admin) {
-            $user -> is_admin = !$user -> is_admin;
+            $user->is_admin = !$user->is_admin;
             $user->update();
         }
-        return redirect('/user');
+        return redirect("/user");
     }
 
     /**
@@ -130,10 +153,12 @@ class Controller extends BaseController
      */
     public function home()
     {
-        $competitions = Cache::remember('four_competitions', 30, function () {
-            return Pertandingan::all()->sortByDesc("created_at")->take(4);
+        $competitions = Cache::remember("four_competitions", 30, function () {
+            return Pertandingan::all()
+                ->sortByDesc("created_at")
+                ->take(4);
         });
-        return view('welcome', compact('competitions'));
+        return view("welcome", compact("competitions"));
     }
 
     /**
@@ -141,7 +166,7 @@ class Controller extends BaseController
      */
     public function homeVideo()
     {
-        $path = public_path('Monodivingolympicintro(1).webm');
+        $path = public_path("Monodivingolympicintro(1).webm");
         VideoStreamer::streamFile($path);
     }
 }
