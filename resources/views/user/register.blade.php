@@ -3,12 +3,9 @@
         <x-slot name="logo">
             <x-jet-authentication-card-logo />
         </x-slot>
-
         <x-jet-validation-errors class="mb-4" />
-
         <form method="POST" action="/user/register">
             @csrf
-
             <div>
                 <x-jet-label for="name" value="{{ __('Nama') }}" />
                 <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
@@ -24,10 +21,7 @@
                 <div class="mt-2">
                 <label class="inline-flex items-center">
                     <input
-                    type="radio"
-                    class="form-radio radio"
-                    name="accountType"
-                    value="urusSetia"
+                    type="radio" class="form-radio radio" name="accountType" value="urusSetia"
                     @if(old("accountType") == "urusSetia")
                         checked
                     @endif
@@ -35,11 +29,7 @@
                     <span class="ml-2">Urus Setia</span>
                 </label>
                 <label class="inline-flex items-center ml-6">
-                    <input
-                    type="radio"
-                    class="form-radio radio"
-                    name="accountType"
-                    value="hakim"
+                    <input type="radio" class="form-radio radio" name="accountType" value="hakim"
                     @if(old("accountType") == "hakim" || old("accountType") == null)
                         checked
                     @endif

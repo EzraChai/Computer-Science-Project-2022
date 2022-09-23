@@ -1,10 +1,10 @@
 <x-public-page>
-    <div class="p-12"></div>
-    <div class="py-6">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="p-12  print:p-0"></div>
+    <div class="py-6 print:py-0">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 print:px-0">
             <div class="flex flex-row w-full">
-                <div data-scroll-section class="grid grid-cols-1 gap-6 lg:p-10 xl:grid-cols-3 w-full rounded-box">
-                    <div class="card transform hover:-translate-y-2 transition shadow-lg side col-span-2  bg-base-100">
+                <div data-scroll-section class="grid print:flex print:flex-col grid-cols-1 gap-6 lg:p-10 xl:grid-cols-3 w-full rounded-box">
+                    <div class="card transform hover:-translate-y-2 transition shadow-lg side col-span-2 bg-base-100">
                         <div class="flex-row items-center space-x-4 card-body">
                             <div class="flex-1">
                                 <p class="text-base-content text-opacity-60">Pertandingan</p>
@@ -20,8 +20,11 @@
                                 <p class="text-base-content text-opacity-60">Tarikh</p>
                                 <h1 class="card-title text-4xl font-extrabold text-YInMnBlue">
                                     {{ date('d/m/Y', strtotime($competition->date)) }}
+
                                 </h1>
                             </div>
+                        </div>
+                        <div class="px-4 pb-4">
                         </div>
                     </div>
                     <div class="card transform hover:-translate-y-2 transition shadow-lg side col-span-2  bg-base-100">
@@ -86,11 +89,14 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                                <div class="px-10 pb-10 relative">
+                                    <button onclick="handlePrint()" class="btn absolute right-0 w-25 print:hidden">Print</button>
+                                </div>
                             </div>
                         @endif
                     @endif
 
-                    <div class="card col-span-1 row-span-3 shadow-lg xl:col-span-3 bg-base-100">
+                    <div class="card col-span-1 row-span-3 shadow-lg xl:col-span-3 bg-base-100 print:hidden">
                         <div class="card-body text-gray-800">
                             @foreach ($overallParticipantsMark as $key2 => $participantsMark)
                                 <div class="collapse w-full mt-4 shadow-sm collapse-arrow">
@@ -327,6 +333,7 @@
                             @endforeach
                         </div>
                     </div>
+                    
                 </div>
             </div>
         </div>
@@ -336,5 +343,15 @@
         const handleClick = () => {
             scroll.update()
         }
+        const handlePrint = () => {
+            window.print();
+        }
     </script>
+    <style>
+        @media print {
+            body {
+                transform: scale(0.80);
+            }
+        }
+    </style>
 </x-public-page>

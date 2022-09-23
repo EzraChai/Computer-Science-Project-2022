@@ -65,8 +65,8 @@ class PesertaController extends Controller
                 $validated = $request->validate([
                     "name1" => ["required", "string", "max:255"],
                     "name2" => ["required", "string", "max:255"],
-                    "identity1" => ["required", "max:255"],
-                    "identity2" => ["required", "max:255"],
+                    "identity1" => ["required", "max:12"],
+                    "identity2" => ["required", "max:12"],
                     "school" => ["required", "string", "min:4", "max:255"],
                 ]);
                 $peserta = Peserta::create([
@@ -80,7 +80,7 @@ class PesertaController extends Controller
             } else {
                 $validated = $request->validate([
                     "name" => ["required", "string", "max:255"],
-                    "identity" => ["required", "max:255"],
+                    "identity" => ["required", "max:12"],
                     "school" => ["required", "string", "min:4", "max:255"],
                 ]);
                 $peserta = Peserta::create([
